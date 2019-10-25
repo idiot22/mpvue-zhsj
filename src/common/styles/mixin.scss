@@ -1,0 +1,8 @@
+@function px($num){
+    @return $num / 2 + px
+}
+$text-large: 18px;
+$text-big: 16px;
+$text-medium: 14px;
+$text-small: 12px;
+$text-tiny: 10px;
