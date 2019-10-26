@@ -40,10 +40,9 @@ export default {
 }
 </script>
 
-<style>
-body{
+<style lang='scss'>
+@import './common/styles/resetui.scss';
 
-}
 .container {
   height: 100%;
   display: flex;
