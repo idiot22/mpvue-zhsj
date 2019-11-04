@@ -1,5 +1,57 @@
+@import './mixin.scss';
 .van-search{
     .van-search__content{
         background: white
       }
+}
+.van-card{
+  background-color: white !important;
+  .van-card__title{
+    font-size: 16px;
+  }
+  .van-card__bottom{
+    line-height: 60px;
+  }
+  .van-card__price{
+    font-size: $text-big;
+    color: #FF9933
+  }
+  .van-card__num{
+    color: $main-color;
+    font-size:$text-medium
+  }
+  .van-card__title{
+    padding-bottom: 10px;
+  }
+  .van-card__thumb{
+    overflow: hidden;
+    border-radius: 20px 0px;
+  }
+}
+
+
+.van-swipe-cell{
+  .van-swipe-cell__right{
+    background-color: red;
+    width: 65px;
+    text-align: center;
+    line-height: 65px;
+    color: white;
+  }
+}
+.van-cell{
+  .van-cell__title{
+    width: 80%;
+    flex: 5;
+  }
+  .van-cell__value{
+    flex: 1;
+    display: inline-block;
+  }
+}
+
+.van-tabs{
+  .van-tabs__line{
+    background-color: $main-color;
+  }
 }

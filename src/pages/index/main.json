@@ -1,5 +1,14 @@
 {"usingComponents": {
     "van-button": "/static/vant/button/index",
-    "van-search": "/static/vant/search/index"
+    "van-search": "/static/vant/search/index",
+    "van-row": "/static/vant/row/index",
+    "van-col": "/static/vant/col/index",
+    "van-cell": "/static/vant/cell/index",
+    "van-icon": "/static/vant/icon/index",
+    "van-card": "/static/vant/card/index",
+    "van-tag": "/static/vant/tag/index",
+    "van-panel": "/static/vant/panel/index",
+    "van-swipe-cell": "/static/vant/swipe-cell/index",
+    "van-cell-group": "/static/vant/cell-group/index"
   }
 }

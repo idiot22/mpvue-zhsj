@@ -1,8 +1,11 @@
 {
   "pages": [
     "pages/index/main",
+    "pages/login/main",
+    "pages/courseInfo/main",
     "pages/logs/main",
-    "pages/counter/main"
+    "pages/counter/main",
+    "pages/person/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -27,7 +30,7 @@
       "pagePath": "pages/logs/main"
     }, {
       "text": "",
-      "pagePath": "pages/logs/main"
+      "pagePath": "pages/person/main"
     }],
 
     "items": [{

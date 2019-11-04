@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import App from './index'
-import MpvueRouterPatch from 'mpvue-router-patch'
-Vue.use(MpvueRouterPatch)
 
 // add this to handle exception
 Vue.config.errorHandler = function (err) {

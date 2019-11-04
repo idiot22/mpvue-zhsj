@@ -1,8 +1,17 @@
 @function px($num){
     @return $num / 2 + px
 }
+$bottom-pad: 40px;
 $text-large: 18px;
 $text-big: 16px;
 $text-medium: 14px;
 $text-small: 12px;
 $text-tiny: 10px;
+
+$main-color:#00c5bc;
+$bg-color:#f2f2f2;
+$bg2-color:#fbf9fe;
+$yellow-color:#FF9933;
+$color-small: #888;
+$color-shallow: #adadb0;
+$color-line: #dddddd;

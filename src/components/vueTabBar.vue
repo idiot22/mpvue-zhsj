@@ -37,19 +37,19 @@ export default {
           text: '课程',
           iconPath: '../../static/tabs/活动.png',
           selectedIconPath: '../../static/tabs/活动-c.png',
-          pagePath: '../../pages/logs/main'
+          pagePath: '../../pages/person/main'
         },
         {
           text: '提交',
           iconPath: '../../static/tabs/提交.png',
           selectedIconPath: '../../static/tabs/提交-c.png',
-          pagePath: '../../pages/logs/main'
+          pagePath: '../../pages/person/main'
         },
         {
           text: '我的',
           iconPath: '../../static/tabs/my.png',
           selectedIconPath: '../../static/tabs/my-c.png',
-          pagePath: '../../pages/logs/main'
+          pagePath: '../../pages/person/main'
         }
       ],
       activeIndex: 0
@@ -63,6 +63,7 @@ export default {
   methods: {
     linkTo (index) {
       this.activeIndex = index
+      console.log(this.tabList[index].pagePath)
       wx.switchTab({
         url: this.tabList[index].pagePath
       })
@@ -78,6 +79,7 @@ export default {
     bottom: 0px;
     width: 100%;
     height: 48px;
+    z-index: 100;
     background: white;
     .tab-bar{
         box-shadow: 0px -4px 4px rgba(0, 0, 0, 0.05);

@@ -42,7 +42,7 @@ export default {
 
 <style lang='scss'>
 @import './common/styles/resetui.scss';
-
+@import './common/fonts/iconfont.css';
 .container {
   height: 100%;
   display: flex;
