@@ -2,6 +2,7 @@
   "pages": [
     "pages/index/main",
     "pages/login/main",
+    "pages/list/main",
     "pages/courseInfo/main",
     "pages/logs/main",
     "pages/counter/main",
@@ -34,12 +35,22 @@
     }],
 
     "items": [{
-      "name": "",
+      "text": "",
       "pagePath": "pages/index/main"
-    }, {
-      "name": "",
+    },{
+      "text": "",
       "pagePath": "pages/logs/main"
+    },
+    {
+      "text": "",
+      "pagePath": "pages/logs/main"
+    }, {
+      "text": "",
+      "pagePath": "pages/person/main"
     }],
     "position": "bottom"
+  },
+  "usingComponents":{
+    "van-button": "../static/vant/button/index"
   }
 }

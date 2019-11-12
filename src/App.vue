@@ -25,7 +25,6 @@ export default {
     }
   },
   onshow () {
-    console.log(111)
     wx.hideTabBar({
       false: () => {
         setTimeout(() => {
@@ -43,6 +42,9 @@ export default {
 <style lang='scss'>
 @import './common/styles/resetui.scss';
 @import './common/fonts/iconfont.css';
+.scroll-view{
+  padding-left: 10px 
+}
 .container {
   height: 100%;
   display: flex;

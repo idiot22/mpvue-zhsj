@@ -6,7 +6,8 @@
     <input :type="inputType" 
       @focus="begin()"
        @blur="end()" 
-       :placeholder='placeholder'>
+       :placeholder='placeholder'
+       :password='password'>
     <hr class="line-bottom" :class="active == 1 ? 'line-bottom-active' : ''">
     <hr class="line-right" :class="activeRight == 1 ? 'line-right-active' : ''">
     <hr class="line-top" :class="activeTop == 1 ? 'line-top-active' : ''">
@@ -27,6 +28,10 @@ export default {
     placeholder: {
       type: String,
       default: ''
+    },
+    password: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -45,6 +50,7 @@ export default {
           this.activeTop = 1
         }, 200)
       }, 100)
+      this.$emit('focus')
     },
     end () {
       this.activeTop = 0
@@ -55,6 +61,7 @@ export default {
           console.log(111)
         }, 200)
       }, 200)
+      this.$emit('blur')
     }
   }
 }

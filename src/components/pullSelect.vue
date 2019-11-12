@@ -1,11 +1,12 @@
 <template>
-    <picker bindchange="bindPickerChange" :value="index" :range="array"> 
+    <picker @change="bindPickerChange" :value="index" :range="array"> 
         <div class='input-wraper'>
             <div class="icon-wraper">
             <i class='iconfont icon--xialajiantou'></i>
             </div>
+            <span class="content" v-if="index == -1">{{placeholder}}</span>
+            <span class="content" v-else>{{array[index]}}</span>
         </div>
-        {{array[index]}}
     </picker>
 </template>
 
@@ -14,19 +15,19 @@ export default {
   props: {
     array: {
       type: Array,
-      default: ['一年级',
-        '二年级',
-        '三年级',
-        '四年级',
-        '五年级',
-        '六年纪' ]
+      default: []
+    },
+    placeholder: {
+      type: String,
+      default: ''
     }
   },
   data () {
     return {
       active: 0,
       activeRight: 0,
-      activeTop: 0
+      activeTop: 0,
+      index: -1
     }
   },
   methods: {
@@ -45,9 +46,11 @@ export default {
         this.activeRight = 0
         setTimeout(() => {
           this.active = 0
-          console.log(111)
         }, 200)
       }, 200)
+    },
+    bindPickerChange (e) {
+      this.index = e.mp.detail.value
     }
   }
 }
@@ -123,6 +126,10 @@ export default {
     }
     .placehoder{
       font-size:$text-small
+    }
+    .content{
+      color: $color-small;
+      font-size: $text-small
     }
 }
 </style>
