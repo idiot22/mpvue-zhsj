@@ -50,27 +50,17 @@
     <div class="my-course">
       <title-bar :text="'我的课程'"></title-bar>
       <div class="content-wraper">
-        <scroll-view scroll-x class='content'>
-          <div class="content-item" v-for='(item,index) in mycourse' :key='index'>
-            <div class="img" :style="{backgroundImage:'url('+item.imgUrl+')'}">
-              <div class="mask">
-                {{item.course}}
-              </div>
-            </div>
-            <p class="time">
-                <span>2019-10 15:00</span>
-            </p>
-            <p class="warn">
-              <span>
-                <van-icon name="eye" class="eye"/>
-                <span class="icon-attentionfill"> 进行中</span>
-              </span>
-            </p>
-          </div>
-          <div class="more">
-            <div>
-              <p class="icon"><van-icon name="upgrade" class="upgrade"/></p>
-              <p class='see-more'>查看更多</p>
+        <scroll-view scroll-x >
+          <div class='content'>
+            <show-image-card
+            v-for='(item,index) in mycourse' :key='index'
+            :imgUrl='item.imgUrl' 
+            :title="item.course" 
+            :time="item.day+' '+item.time"
+            :status='item.flag'>
+            </show-image-card>
+            <div class="marginleft">
+             <card-show-more :url="'../../pages/list/main'"></card-show-more>
             </div>
           </div>
         </scroll-view>
@@ -99,33 +89,23 @@
         <van-button style='margin:0 auto;border-radius:20px;border:2rpx #a29b9b；font-family:Source Han Serif SCS'>查看更多课程</van-button>
       </div>
     </div>
-    <!--enrollCourse-->
+    <!--/enrollCourse-->
 
     <!--myActivity-->
     <div class="my-course">
       <title-bar :text="'我的活动'"></title-bar>
       <div class="content-wraper">
         <scroll-view scroll-x class='content'>
-          <div class="content-item" v-for='(item,index) in mycourse' :key='index'>
-            <div class="img" :style="{backgroundImage:'url('+item.imgUrl+')'}">
-              <div class="mask">
-                {{item.course}}
-              </div>
-            </div>
-            <p class="time">
-                <span>2019-10 15:00</span>
-            </p>
-            <p class="warn">
-              <span>
-                <van-icon name="eye" class="eye"/>
-                <span class="icon-attentionfill"> 进行中</span>
-              </span>
-            </p>
-          </div>
-          <div class="more">
-            <div>
-              <p class="icon"><van-icon name="upgrade" class="upgrade"/></p>
-              <p class='see-more'>查看更多</p>
+          <div class='content'>
+            <show-image-card
+            v-for='(item,index) in myactivity' :key='index'
+            :imgUrl='item.imgUrl' 
+            :title="item.course" 
+            :time="item.day+' '+item.time"
+            :status='item.flag'>
+            </show-image-card>
+            <div class="marginleft">
+             <card-show-more></card-show-more>
             </div>
           </div>
         </scroll-view>
@@ -152,7 +132,7 @@
         </div>
       </van-card>
       <div class="btn-wraper">
-        <van-button style='margin:0 auto;border-radius:20px;border:2rpx #a29b9b；font-family:Source Han Serif SCS'>查看更多课程</van-button>
+        <van-button style='margin:0 auto;border-radius:20px;border:2rpx #a29b9b;font-family:Source Han Serif SCS'>查看更多课程</van-button>
       </div>
     </div>
     <!--enrollActivity-->
@@ -192,10 +172,14 @@
 import vueTabBar from '@/components/vueTabBar.vue'
 import { bannerUrl, tabImgUrl } from '@/utils/data.js'
 import titleBar from '@/components/titleBar.vue'
+import showImageCard from '@/components/showImageCard.vue'
+import cardShowMore from '@/components/cardShowMore.vue'
 export default {
   components: {
     vueTabBar,
-    titleBar
+    titleBar,
+    showImageCard,
+    cardShowMore
   },
   data () {
     return {
@@ -244,7 +228,6 @@ export default {
         day: '周六',
         time: '15:00-17:00',
         price: '3500'
-
       },
       {
         courseImg: 'http://localhost/zhsj/image/courses/活动02.jpg',
@@ -281,6 +264,35 @@ export default {
         isread: '已读',
         label: '原计划于鄂尔多斯市举行的开营市改为包头市',
         border: true
+      }
+      ],
+      myactivity: [{
+        flag: '进行中',
+        imgUrl: 'http://localhost/zhsj/image/courses/课程.jpg',
+        course: 'David',
+        day: '2019-04-19',
+        time: '15:00'
+      },
+      {
+        flag: '一天后',
+        imgUrl: 'http://localhost/zhsj/image/courses/课程02.jpg',
+        course: 'Susan',
+        day: '2019-04-19',
+        time: '15:00'
+      },
+      {
+        flag: '六天后',
+        imgUrl: 'http://localhost/zhsj/image/courses/课程03.jpg',
+        course: 'Helen',
+        day: '2019-04-19',
+        time: '15:00'
+      },
+      {
+        flag: '一天后',
+        imgUrl: 'http://localhost/zhsj/image/courses/coding.png',
+        course: 'Mathew',
+        day: '2019-04-19',
+        time: '15:00'
       }
       ]
     }
@@ -421,84 +433,6 @@ export default {
     display: flex;
     white-space: nowrap;
     position: relative;
-    .content-item{
-      width:100px;
-      display:inline-block;
-      margin: 0px 5px;
-      .img{
-        position: relative;
-        width:100%;
-        height: 135px;
-        background-size:100% 100%;
-        background-repeat:no-repeat; 
-        overflow: hidden;
-        border-radius: 5px
-      }
-      .time{
-        text-align: center;
-        font-size: $text-small;
-        color: $color-small;
-      }
-      .warn{
-        font-weight: bold;
-        color:$main-color;
-        font-size: $text-small;
-        text-align:center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        span{
-          display: flex;
-          align-items: center;
-          .eye{
-            font-size: $text-big;
-            margin-top: 5px
-          }
-        }
-      }
-      .mask{
-        position:absolute;
-        width:100%;
-        bottom: 0px;
-        background: linear-gradient(rgba(0, 0, 160, 0.06), rgba(127, 127,127, 1));
-        height: 40px;
-        text-align: center;
-        color: white;
-        font-size: $text-medium;
-        font-weight: 400;
-        line-height: 40px;
-      }
-    }
-    .content-item:first-child{
-      margin-left:0px
-    }
-    .more{
-      position: absolute;
-      top:0px;
-      border-radius: 5px;
-      display: inline-block;
-      width: 70px;
-      height: 135px;
-      background: #f5f5f5;
-      margin-left:5px;
-      div{
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        justify-content: center;
-        align-items: center;
-        color:$color-small;
-        .icon{
-            transform: rotate(90deg)
-        }
-        .upgrade{
-          font-size: 30px;
-        }
-        .see-more{
-          font-size: $text-small
-        }
-      }
-    }
   }
 }
 
@@ -530,5 +464,10 @@ export default {
   font-size: $text-small;
   margin-top: 3px;
   line-height: 18px;
+}
+
+//附加
+.marginleft{
+  margin-left: 10px 
 }
 </style>

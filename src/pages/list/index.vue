@@ -18,6 +18,23 @@
         </van-search>
       </div>
     </div>
+    <div class="content">
+      <van-card
+          class="card"
+          num="最新课程"
+          :price="item.price"
+          :title="item.title"
+          title-class='title-class'
+          :thumb="item.courseImg"
+          :origin-price="'4000'"
+          v-for="(item,index) in  list"
+          :key="index"
+          >
+          <div slot="desc">
+            <van-tag plain class='desc-tag'>一年级</van-tag>
+          </div>
+      </van-card>    
+    </div>
   </div>
 </template>
 
@@ -141,6 +158,33 @@ export default {
 
           ]
         }
+      ],
+      list: [
+        {
+          courseImg: 'http://localhost/zhsj/image/courses/cooker.jpg',
+          title: '小小美食家',
+          flag: '进行中',
+          day: '周六',
+          time: '15:00-17:00',
+          price: '3500'
+        },
+        {
+          courseImg: 'http://localhost/zhsj/image/courses/活动02.jpg',
+          title: '折纸课程',
+          flag: '一天后',
+          day: '周日',
+          time: '15:00-17:00',
+          price: '5500'
+        },
+        {
+          courseImg: 'http://localhost/zhsj/image/courses/活动03.jpg',
+          title: '航模制作',
+          flag: '六天后',
+          day: '周五',
+          time: '19:00-21:00',
+          price: '6000'
+
+        }
       ]
     }
   },
@@ -180,6 +224,9 @@ export default {
     .search-wraper{
       flex: 1
     }
+  }
+  .content{
+    padding-top: 20px;
   }
 }
 

@@ -52,7 +52,7 @@ export default {
     top:0px;
     width: 100%;
     height: 100%;
-    background: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.9);
     padding: 30px 0px;
     overflow: hidden;
     .btn-wraper{
