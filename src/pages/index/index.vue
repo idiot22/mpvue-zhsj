@@ -1,5 +1,6 @@
 <template>
   <div class="index">
+    <auth v-if="isAuth" @getUserInfo='_getSetting'></auth>
     <!--search-->
     <div class="search-wraper"> 
       <van-search
@@ -174,15 +175,19 @@ import { bannerUrl, tabImgUrl } from '@/utils/data.js'
 import titleBar from '@/components/titleBar.vue'
 import showImageCard from '@/components/showImageCard.vue'
 import cardShowMore from '@/components/cardShowMore.vue'
+import { getSetting, getUserInfo, getUserOpenId } from '@/api/wechat.js'
+import Auth from '../../base/Auth'
 export default {
   components: {
     vueTabBar,
     titleBar,
     showImageCard,
-    cardShowMore
+    cardShowMore,
+    Auth
   },
   data () {
     return {
+      isAuth: false,
       searchStyle: {
         bgColor: '#f2f2f2',
         shape: 'round'
@@ -332,10 +337,32 @@ export default {
       // }).then(() => {
       //   instance.close()
       // })
+    },
+    _getSetting () {
+      getSetting('userInfo',
+        () => {
+          this.isAuth = false
+          this._getUserInfo()
+        },
+        () => {
+          this.isAuth = true
+          console.log('没有获取到相应的授权信息,需要授权')
+        })
+    },
+    _getUserInfo () {
+      getUserInfo(
+        (res) => {
+          console.log(res)
+        },
+        () => {
+          console.log('没有获取到用户信息')
+        })
     }
   },
   mounted () {
     this._initBanner()
+    this._getSetting()
+    getUserOpenId()
   },
   created () {
     wx.hideTabBar({
