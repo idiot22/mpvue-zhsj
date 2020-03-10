@@ -1,13 +1,16 @@
 {
   "pages": [
     "pages/index/main",
+    "pages/radar/main",
     "pages/info-list/main",
     "pages/login/main",
     "pages/list/main",
     "pages/courseInfo/main",
     "pages/logs/main",
     "pages/counter/main",
-    "pages/person/main"
+    "pages/person/main",
+    "pages/overallCommend/main",
+    "pages/schedule/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -52,6 +55,7 @@
     "position": "bottom"
   },
   "usingComponents":{
-    "van-button": "../static/vant/button/index"
+    "van-button": "../static/vant/button/index",
+    "van-tag": "../static/vant/tag/index"
   }
 }

@@ -236,7 +236,142 @@ export function getOpenId (code) {
 }
        ````
 
+### 雷达页
 
++ 安装 **mpvue-echarts** 及 **echarts** 插件
+
+  ```
+  ## mpvue-echarts
+  npm i mpvue-echarts --save
+  ## echarts
+  npm i echarts --save
+  ```
+
++ echarts体积过大https://www.echartsjs.com/zh/builder.html专属定制
+
++ ```
+  <template>
+    <div id="radar">
+      <div class="wrap">
+        <mpvue-echarts :echarts="echarts" :onInit="onInit" />
+      </div>
+    </div>
+  </template>
+  
+  <script>
+  import * as echarts from 'echarts/dist/diy_echarts.min'
+  import mpvueEcharts from 'mpvue-echarts'
+  
+  function initChart (canvas, width, height) {
+    const chart = echarts.init(canvas, null, {
+      width: width,
+      height: height
+    })
+    canvas.setChart(chart)
+  
+    var option = {
+      backgroundColor: '#ffffff',
+      color: ['#00c5bc'], // 选择的界限
+      tooltip: {},
+      xAxis: {
+        show: false
+      },
+      yAxis: {
+        show: false
+      },
+      radar: {
+        // shape: 'circle',
+        splitArea: { // 不同环形的颜色
+          areaStyle: {
+            color: []
+          },
+          shadowColor: ['rgb(197, 207, 217)'] // 圆颜色
+        },
+  
+        axisLine: { // 纵轴的颜色
+          lineStyle: {
+            color: 'rgb(197, 207, 217)'
+          }
+        },
+        axisTick: {
+          show: true
+        },
+        indicator: [{ // 指示的内容
+          name: '人文底蕴',
+          max: 100
+        },
+        {
+          name: '科学精神',
+          max: 100
+        },
+        {
+          name: '学会学习',
+          max: 100
+        },
+        {
+          name: '健康生活',
+          max: 100
+        },
+        {
+          name: '责任担当',
+          max: 100
+        },
+        {
+          name: '实践创新',
+          max: 100
+        }
+        ],
+        name: { // 修改指示器的样式
+          formatter: '{value}',
+          textStyle: {
+            color: 'white',
+            backgroundColor: '#00c5bc',
+            borderRadius: 3,
+            padding: [3, 5],
+            fontSize: 13
+          }
+        }
+      },
+      series: [{
+        name: '预算 vs 开销',
+        type: 'radar',
+        data: [{
+          value: [3, 40, 50, 30, 49, 40],
+          name: '预算'
+        }
+        ]
+      }]
+    }
+  
+    chart.setOption(option)
+    return chart
+  }
+  
+  export default {
+    data () {
+      return {
+        echarts,
+        onInit: initChart
+      }
+    },
+  
+    components: {
+      mpvueEcharts
+    },
+  
+    onShareAppMessage () {}
+  }
+  </script>
+  
+  <style scoped>
+  .wrap {
+    width: 100%;
+    height: 300px;
+  }
+  </style>
+  ```
+
++ 修改雷达图点击显示
 
 ## api
 
@@ -267,6 +402,35 @@ export function getOpenId (code) {
 1.对于wx的api封装都放入wechat.js
 
 ## 问题
+
+### mpvue
+
+1. 引入模块报错Final loader didn't return a Buffer or String
+
+2. 改变单页背景色
+
+   ```
+   <style> //不能加scoped
+   page{
+     background: #F2F7FE;
+   }
+   </style>
+   ```
+
+3.  嵌套v-for报错`同一组件内嵌套的 v-for 不能连续使用相同的索引，目前为: index,index`
+
+    ```
+            <div class="txt-wraper" v-for="(item, _index) in subtitle" :key='_index'>
+                <div class="sub-title">
+                    <img src="../../../static/images/overallcommend/wode.png">
+                <span>{{item.txt}}</span>
+                </div>
+                <div class="txt" v-for="msg in item" :key='msg'>{{msg}}</div>
+            </div>
+            //综合实践页面
+    ```
+
+4.  数据渲染图片路径，直接从/static开始写
 
 ### vant
 
