@@ -15,50 +15,72 @@
             <div class="picker">
               <i class="iconfont icon-dituzuobiao">
                 <span class="place">
-                {{regionArray[0][regionIndex[0]]}}，{{regionArray[1][regionIndex[1]]}}，{{regionArray[2][regionIndex[2]]}}
+                {{province}}，{{city}}，{{schoolName}}
                 </span>
               </i>
             </div>
           </picker>
-          <login-input :iconName="'icon-geren'"></login-input>
+          <login-input 
+            :iconName="'icon-geren'"
+            @input="getName"></login-input>
           <div class="input-wraper">
-            <login-input :iconName="'icon-suo'"  :password='true' @focus="focuspwd" @blur="blurpwd"></login-input>
+            <login-input
+              @input="getPwd"
+              :iconName="'icon-suo'"  
+              :password='true' 
+              @focus="focuspwd" 
+              @blur="blurpwd"></login-input>
           </div>
-          <van-button 
-            :round='true' 
-            size='large' 
-            :form-type='true'>
-            登录
-          </van-button>
+          <navigator url="../index/main">
+            <van-button 
+              @click="login"
+              :round='true' 
+              size='large' 
+              :form-type='true'>
+              登录
+            </van-button>
+          </navigator>
           <p class="zhuce " @click="changetTozhuce" >注册</p>
           <p class="fgpwd">忘记密码?</p>
       </div>
       <!--/登录-->
       <!--注册-->
-      <div class="card zhuce-wraper" :class="rotateAni1 === 1 ? 'ani-zhuce' : (rotateAni1 === 2 ? 'ani-zhuce-reverse':'')">
-          <picker mode="multiSelector" @change="bindMultiPickerChange" @columnchange="bindMultiPickerColumnChange" :value="regionIndex" :range="regionArray">
+      <div class="card zhuce-wraper" 
+          :class="rotateAni1 === 1 ? 'ani-zhuce' : (rotateAni1 === 2 ? 'ani-zhuce-reverse':'')">
+          <picker mode="multiSelector" 
+            @change="bindMultiPickerChange" 
+            @columnchange="bindMultiPickerColumnChange" 
+            :value="regionIndex" 
+            :range="regionArray">
             <div class="picker">
               <i class="iconfont icon-dituzuobiao">
                 <span class="place">
-                {{regionArray[0][regionIndex[0]]}}，{{regionArray[1][regionIndex[1]]}}，{{regionArray[2][regionIndex[2]]}}
+                {{province}}，{{city}}，{{schoolName}}
                 </span>
               </i>
             </div>
           </picker>
-          <pull-select :placeholder="'请选择年级'" :array='gradeArray'></pull-select>
+          <pull-select :placeholder="'请选择年级'" :array='gradeArray' @select="getGrade"></pull-select>
           <div class="input-wraper">
-            <login-input :iconName="'icon-geren'" placeholder="请输入姓名"></login-input>
+            <login-input :iconName="'icon-geren'" placeholder="请输入姓名" @input="getName"></login-input>
           </div>
-          <pull-select :placeholder="'请选择性别'" :array='sexArray'></pull-select>
+          <pull-select :placeholder="'请选择性别'" :array='sexArray' @select="getSex"></pull-select>
           <div class="input-wraper">
-            <login-input :iconName="'icon-cardid'" placeholder="请输入身份证后六位"></login-input>
+            <login-input 
+              :iconName="'icon-cardid'" 
+              placeholder="请输入身份证后六位" 
+              :password='true' 
+              @input="getIdcard"></login-input>
           </div>
-          <van-button 
-            :round='true' 
-            size='large' 
-            :form-type='true'>
-            注册
-          </van-button>
+          <navigator url='../index/main'>
+            <van-button 
+              @click="regist"
+              :round='true' 
+              size='large' 
+              :form-type='true'>
+              注册
+            </van-button>
+          </navigator>
           <p class="zhuce" @click="changetTologin">登录</p>
       </div>
       <!--/注册-->
@@ -69,6 +91,8 @@
 <script>
 import LoginInput from '../../components/LoginInput'
 import pullSelect from '../../components/pullSelect'
+import api from '../../api/index'
+import md5 from 'js-md5'
 export default {
   components: {
     LoginInput,
@@ -76,15 +100,29 @@ export default {
   },
   data () {
     return {
+      idcard: '',
+      name: '',
+      studentName: '',
+      password: '',
+      orgList: [],
       rotateAni1: 0,
-      regionArray: [['全国', '上海', '云南', '内蒙古', '北京', '吉林', '四川', '天津', '宁夏', '安徽'], ['东莞', '中山', '云浮', '佛山', '广州', '惠州', '揭阳', '梅州'], ['爱实践', '北师大']],
-      regionIndex: [0, 0, 0],
+      regionArray: [],
+      regionIndex: [12, 16, 0],
+      grade: null,
+      sex: null,
       gradeArray: ['一年级',
         '二年级',
         '三年级',
         '四年级',
         '五年级',
-        '六年级' ],
+        '六年级',
+        '七年级',
+        '八年级',
+        '九年级',
+        '小班',
+        '中班',
+        '大班',
+        '成人' ],
       sexArray: [
         '男',
         '女'
@@ -92,7 +130,61 @@ export default {
       isFocusPwd: -1
     }
   },
+  watch: {
+    regionArray () {
+
+    }
+  },
+  computed: {
+    province () {
+      return this.regionArray.length !== 0 ? this.regionArray[0][this.regionIndex[0]] : ''
+    },
+    city () {
+      return this.regionArray.length >= 2 ? this.regionArray[1][this.regionIndex[1]] : ''
+    },
+    schoolName () {
+      return this.regionArray.length === 3 ? this.regionArray[2][this.regionIndex[2]] : ''
+    },
+    schoolOrg () {
+      return this.regionArray.length === 3 ? this.regionArray[2][this.regionIndex[2]] : ''
+    },
+    orgId () {
+      return (this.regionArray.length === 3 && this.orgList.length >= 1) ? this.orgList[this.regionIndex[2]].orgId : ''
+    }
+  },
+  onLoad () {
+    api.getProvince().then((res) => {
+      this.regionArray.push(res.data.data)
+      api.getCity(this.province).then((res) => {
+        this.regionArray.push(res.data.data)
+        api.getOrganizations(this.province, this.city).then((res) => {
+          let schoolList = []
+          res.data.data.forEach(item => {
+            schoolList.push(item.orgName)
+          })
+          this.orgList = res.data.data
+          this.regionArray.push(schoolList)
+        })
+      })
+    })
+  },
   methods: {
+    getIdcard (value) {
+      this.idcard = value
+    },
+    getSex (value) {
+      this.sex = this.sexArray[value]
+    },
+    getGrade (value) {
+      this.grade = value
+    },
+    getName (value) {
+      this.studentName = value
+      this.name = value
+    },
+    getPwd (value) {
+      this.password = value
+    },
     changetTozhuce () {
       this.rotateAni1 = 1
     },
@@ -101,18 +193,107 @@ export default {
     },
     bindMultiPickerChange (e) {
       console.log('picker发送选择改变，携带值为', e)
-      this.region = e
+      this.regionIndex = e.mp.detail.value
     },
+    // 数列变化时获取相应城市，学校的数据
     bindMultiPickerColumnChange (e) {
-      console.log(e)
+      let column = e.mp.detail.column // 判断是那一列移动
+      let index = this.regionIndex.slice() // 克隆，用于监听regionIndex
+      index[e.mp.detail.column] = e.mp.detail.value
+      this.regionIndex = index
+      if (column === 0) {
+        // 重置
+        index[e.mp.detail.column] = e.mp.detail.value
+        index[1] = 0
+        index[2] = 0
+        this.regionIndex = index
+      } else if (column === 1) {
+        // 重置
+        index[e.mp.detail.column] = e.mp.detail.value
+        index[2] = 0
+      }
+      api.getCity(this.province).then((res) => {
+        this.regionArray.splice(1, 1, res.data.data)
+        api.getOrganizations(this.province, this.city).then((res) => {
+          let schoolList = []
+          if (res.data.data.length !== 0) {
+            res.data.data.forEach(item => {
+              schoolList.push(item.orgName)
+            })
+          } else {
+            schoolList = ['']
+          }
+          this.orgList = res.data.data
+          this.regionArray.splice(2, 1, schoolList)
+        })
+      })
     },
     focuspwd () {
       this.isFocusPwd = 0
-      console.log(this.isFocusPwd)
     },
     blurpwd () {
       this.isFocusPwd = 1
-      console.log(this.isFocusPwd)
+    },
+    login () {
+      let options = {headers: {'content-type': 'application/x-www-form-urlencoded'}}
+      api.userLogin({
+        studentName: this.studentName,
+        password: md5(this.password),
+        orgId: this.orgId
+      }, options).then((res) => {
+        if (res.code === 200) {
+          this.$router.push({ path: '../index/main', isTab: true })
+        }
+      })
+    },
+    regist () {
+      // 表单验证
+      if (this.orgId.length === 0) {
+        wx.showToast({
+          title: '学校尚未选择',
+          icon: 'none',
+          duration: 2000
+        })
+        return
+      }
+      if (!this.grade) {
+        wx.showToast({
+          title: '年级尚未选择',
+          icon: 'none',
+          duration: 2000
+        })
+        return
+      }
+      if (this.studentName === '') {
+        wx.showToast({
+          title: '姓名尚未填写',
+          icon: 'none',
+          duration: 2000
+        })
+        return
+      }
+      if (!this.sex) {
+        wx.showToast({
+          title: '性别尚未选择',
+          icon: 'none',
+          duration: 2000
+        })
+        return
+      }
+      if (this.idcard.length !== 6) {
+        wx.showToast({
+          title: '身份证后6位错误',
+          icon: 'none',
+          duration: 2000
+        })
+        return
+      }
+      api.userRegist(`grade=${this.grade}&name=${this.studentName}&sex=${this.sex}&idcard=${this.idcard}&school=${this.orgId}`)
+        .then((res) => {
+          if (res.code === 200) {
+            this.changetTologin()
+          }
+        })
     }
   }
 }

@@ -51,6 +51,7 @@ export default {
     },
     bindPickerChange (e) {
       this.index = e.mp.detail.value
+      this.$emit('select', e.mp.detail.value)
     }
   }
 }

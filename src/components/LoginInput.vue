@@ -4,8 +4,9 @@
       <i :class="['iconfont', iconName,active == 1 ? 'icon-active' : '']"></i>
     </div>
     <input :type="inputType" 
-      @focus="begin()"
-       @blur="end()" 
+      @focus="begin(e)"
+      @blur="end(e)"
+      @input="$emit('input',$event.mp.detail.value)"
        :placeholder='placeholder'
        :password='password'>
     <hr class="line-bottom" :class="active == 1 ? 'line-bottom-active' : ''">
@@ -42,6 +43,9 @@ export default {
     }
   },
   methods: {
+    getValue (e) {
+      console.log(e)
+    },
     begin () {
       this.active = 1
       setTimeout(() => {
@@ -52,13 +56,12 @@ export default {
       }, 100)
       this.$emit('focus')
     },
-    end () {
+    end (e) {
       this.activeTop = 0
       setTimeout(() => {
         this.activeRight = 0
         setTimeout(() => {
           this.active = 0
-          console.log(111)
         }, 200)
       }, 200)
       this.$emit('blur')

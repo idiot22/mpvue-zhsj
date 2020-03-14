@@ -1,6 +1,6 @@
 # mpvue综合实践平台
 
-## 过程
+## 界面
 
 ### 首页
 
@@ -373,17 +373,58 @@ export function getOpenId (code) {
 
 + 修改雷达图点击显示
 
+## 数据绑定
+
+### flyio的配置和优点
+
+[mpvue框架使用flyio请求](https://blog.csdn.net/weixin_43992330/article/details/89317938)
+
+`request.js`//配置
+
+`api.js`//接口
+
+post方法options的配置可看userLogin函数
+
+实际应用
+
+```
+    api.getProvince().then((res) => {
+      this.$nextTick(() => {
+        this.regionArray[0] = res.data.data.data
+      })
+    })
+  }
+```
+
+### 登录页
+
+1.三级联动是数据不显示，可看mpvue问题解决
+
+2输入框获取value值
+
+```
+@input="$emit('input',$event.target.value)"
+//父组件
+
+```
+
+3.[密码加密](https://blog.csdn.net/weixin_42215897/article/details/92812414)
+
+4.mpvue-router-patch
+
 ## api
 
 ### api接口
 
+baseUrl： https://zhsj.bnuz.edu.cn/ComprehensiveSys
+
 1.登录
 
-| 内容 | url                                                          | 获取方法 | 参数 |
-| ---- | ------------------------------------------------------------ | -------- | ---- |
-| 省份 | https://zhsj.bnuz.edu.cn/ComprehensiveSys//teacher/provinces | get      |      |
-| 城市 |                                                              |          |      |
-| 学校 |                                                              |          |      |
+| 内容 | url                | 获取方法 | 参数 |
+| ---- | ------------------ | -------- | ---- |
+| 省份 | /teacher/provinces | get      |      |
+| 城市 |                    |          |      |
+| 学校 |                    |          |      |
 
 
 
@@ -430,7 +471,51 @@ export function getOpenId (code) {
             //综合实践页面
     ```
 
-4.  数据渲染图片路径，直接从/static开始写
+4. 数据渲染图片路径，直接从/static开始写
+
+5. 登录页获取省份数据后界面数据没渲染
+
+   主要是regionArray是个对象里面套对象，里面嵌套深，没法监听，用vue的深层嵌套也不行
+
+   ```
+     //用watch监听但是要是data中数据[[],[],[]]就监听不到
+     watch: {
+       regionArray () {
+         console.log('监听regionArray')
+       }
+     },
+   ```
+
+   解决
+
+   data初始化regionArray:[]
+
+   这样就可以监听
+
+   regionIndex: [12, 16, 0]在赋值的时候regionIndex[0] = ??这是不能监听到的，
+
+   要regionIndex = ??这才可以
+   
+   
+
+6.页面切换（重点）
+
+切换到switchtab
+
+```
+//mpvue-router-patch
+this.$router.push({ path: '../index/main', isTab: true })
+```
+
+```
+//小程序
+const url = '../subject/main'
+// switchTab navigateTo
+wx.switchTab({ url })
+```
+
+
+
 
 ### vant
 
@@ -604,11 +689,23 @@ npm i -S mpvue-router-patch
 npm i -S flyio
 ```
 
+```
+npm install js-md5 --save
+```
+
+
+
 ## 之后查询
 
 1.mapmutation
 
 ## mpvue与小程序与vue
+
+mpvue与小程序（重点）
+
+https://www.jianshu.com/p/635714eabcbc
+
+### mpvue生命周期
 
 ### mpvue中使用vuex注意事项
 
