@@ -1,3 +1,4 @@
+
 export let bannerUrl = [
   `http://localhost/zhsj/image/banner01.png`,
   `http://localhost/zhsj/image/banner02.png`,
@@ -19,4 +20,18 @@ export let tabImgUrl = [
   {imgUrl: 'http://localhost/zhsj/image/icon/申报.png',
     pathTo: '/pages/login/main',
     text: '申报'}
+]
+export let courseType = ['研学', '实践', '服务', '兴趣']
+
+export let courseImg = [
+  'http://localhost/zhsj/image/courses/cooker.jpg',
+  'http://localhost/zhsj/image/courses/活动02.jpg',
+  'http://localhost/zhsj/image/courses/活动03.jpg',
+  'http://localhost/zhsj/image/courses/活动05.jpg',
+  'http://localhost/zhsj/image/courses/boy.png',
+  'http://localhost/zhsj/image/courses/farm.png',
+  'http://localhost/zhsj/image/courses/golf.png',
+  'http://localhost/zhsj/image/courses/paperplane.jpg',
+  'http://localhost/zhsj/image/courses/pilot.jpg',
+  'http://localhost/zhsj/image/courses/science.png'
 ]

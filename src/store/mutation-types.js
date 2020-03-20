@@ -1,1 +1,2 @@
-export const SETISFILTER = 'SETISFILTER'
+export const SET_ISFILTER = 'SET_ISFILTER'
+export const SET_STUDENT_ID = 'SET_STUDENT_ID'

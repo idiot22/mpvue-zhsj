@@ -11,7 +11,7 @@ export function getOpenId (code) {
     grant_type: 'authorization_code'
   })
 }
-
+// 登录注册页
 function getProvince () {
   return get(`teacher/provinces`)
 }
@@ -31,10 +31,33 @@ function userLogin (params, options) {
 function userRegist (params) {
   return post(`student/unfilter/register?${params}`)
 }
+
+// 首页
+function getSchedule (params) {
+  return get(`student/getSchedule`, params)
+}
+function getCourseList (params) {
+  return get(`student/initCourseList`, params)
+}
+// 通知消息
+function getNotices (id, params) {
+  return get(`/student/notice/13955062-7391-4477-8a34-e76960605700`, params)
+}
+function getMessages (params) {
+  return get(`/student/getMessages`, params)
+}
+function isRead (params) {
+  return post(`/student/read?messageId=${params}`)
+}
 export default {
   getProvince,
   getCity,
   getOrganizations,
   userLogin,
-  userRegist
+  userRegist,
+  getSchedule,
+  getCourseList,
+  getNotices,
+  getMessages,
+  isRead
 }

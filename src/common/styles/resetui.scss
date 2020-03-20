@@ -27,6 +27,11 @@
     overflow: hidden;
     border-radius: 20px 0px;
   }
+  .van-card__bottom{
+    line-height: 50rpx;
+    border-bottom: 1px solid #dddddd;
+    margin-bottom: 20px;
+  }
 }
 
 
@@ -53,5 +58,12 @@
 .van-tabs{
   .van-tabs__line{
     background-color: $main-color;
+  }
+}
+
+
+.dropdown{
+  .van-dropdown-item--down{
+    top:46px !important
   }
 }

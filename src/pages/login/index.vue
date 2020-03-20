@@ -93,6 +93,8 @@ import LoginInput from '../../components/LoginInput'
 import pullSelect from '../../components/pullSelect'
 import api from '../../api/index'
 import md5 from 'js-md5'
+import { mapMutations, mapState } from 'vuex'
+import * as types from '../../store/mutation-types'
 export default {
   components: {
     LoginInput,
@@ -136,6 +138,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['studentId']),
     province () {
       return this.regionArray.length !== 0 ? this.regionArray[0][this.regionIndex[0]] : ''
     },
@@ -169,6 +172,9 @@ export default {
     })
   },
   methods: {
+    ...mapMutations({
+      setStudentId: types.SET_STUDENT_ID
+    }),
     getIdcard (value) {
       this.idcard = value
     },
@@ -241,6 +247,7 @@ export default {
         password: md5(this.password),
         orgId: this.orgId
       }, options).then((res) => {
+        this.setStudentId(res.detail)
         if (res.code === 200) {
           this.$router.push({ path: '../index/main', isTab: true })
         }

@@ -1,5 +1,11 @@
 # mpvue综合实践平台
 
+## 项目搭建
+
+### [vuex](https://blog.csdn.net/qq_31393401/article/details/80728523)
+
+### 本地服务器的搭建
+
 ## 界面
 
 ### 首页
@@ -377,6 +383,8 @@ export function getOpenId (code) {
 
 ### flyio的配置和优点
 
+https://www.jianshu.com/p/99915695267a
+
 [mpvue框架使用flyio请求](https://blog.csdn.net/weixin_43992330/article/details/89317938)
 
 `request.js`//配置
@@ -412,6 +420,10 @@ post方法options的配置可看userLogin函数
 
 4.mpvue-router-patch
 
+### 消息通知
+
+做已读接口的时候，由于后台**Access-Control-Allow-Origin**的限制，所以搭建本地服务器做代理
+
 ## api
 
 ### api接口
@@ -425,6 +437,10 @@ baseUrl： https://zhsj.bnuz.edu.cn/ComprehensiveSys
 | 省份 | /teacher/provinces | get      |      |
 | 城市 |                    |          |      |
 | 学校 |                    |          |      |
+
+## 大模块
+
+### vuex
 
 
 
@@ -445,6 +461,8 @@ baseUrl： https://zhsj.bnuz.edu.cn/ComprehensiveSys
 ## 问题
 
 ### mpvue
+
+https://www.jianshu.com/p/5e899d32b788
 
 1. 引入模块报错Final loader didn't return a Buffer or String
 
@@ -691,6 +709,12 @@ npm i -S flyio
 
 ```
 npm install js-md5 --save
+```
+
+```
+    "koa": "^2.5.0",
+    "koa-router": "^7.4.0",
+    "koa2-connect": "^1.0.2",
 ```
 
 

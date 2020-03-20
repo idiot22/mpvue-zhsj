@@ -1,8 +1,8 @@
 {
     "usingComponents":{
-        "van-tab": "/static/vant/tab/index",
-        "van-tabs": "/static/vant/tabs/index",
-        "van-icon": "/static/vant/icon/index"
+        "van-tab": "/static/vant2/tab/index",
+        "van-tabs": "/static/vant2/tabs/index",
+        "van-icon": "/static/vant2/icon/index"
     },
     "backgroundColor":"#fbf9fe",
     "navigationBarBackgroundColor": "#999"

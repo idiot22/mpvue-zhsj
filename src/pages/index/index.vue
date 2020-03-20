@@ -49,7 +49,7 @@
     <!--/tab-->
     <!--myCourse-->
     <div class="my-course">
-      <title-bar :text="'我的课程'"></title-bar>
+      <title-bar :text="'今日课程'"></title-bar>
       <div class="content-wraper">
         <scroll-view scroll-x >
           <div class='content'>
@@ -72,18 +72,18 @@
     <div class="enroll-course">
       <title-bar :text="'报名课程'"></title-bar>
       <van-card
-        class="card"
-        num="最新课程"
-        :price="item.price"
-        :title="item.title"
+        class="course-card"
+        :num="'剩余'+item.remain"
+        :price="item.coursePrice"
+        :title="item.courseName"
         title-class='title-class'
-        :thumb="item.courseImg"
-        :origin-price="'4000'"
+        :thumb="courseImgPath[index]"
         v-for="(item,index) in  kcbaoming"
         :key="index"
         >
         <div slot="desc">
-          <van-tag plain class='desc-tag'>一年级</van-tag>
+          <van-tag  round  color="#f2826a" class='desc-tag'>{{courseType[item.courseType]}}</van-tag>
+          <p class="data">{{item.payEndTime}} ~ {{item.payStartTime}}</p>
         </div>
       </van-card>
       <div class="btn-wraper">
@@ -120,16 +120,16 @@
       <van-card
         class="card"
         num="最新活动"
-        :price="item.price"
-        :title="item.title"
+        :price="item.coursePrice"
+        :title="item.className"
         title-class='title-class'
-        :thumb="item.courseImg"
+        
         :origin-price="'4000'"
         v-for="(item,index) in  kcbaoming"
         :key="index"
         >
         <div slot="desc">
-          <van-tag plain class='desc-tag'>一年级</van-tag>
+          <van-tag plain class='desc-tag'>{{courseType[item.courseType]}}</van-tag>
         </div>
       </van-card>
       <div class="btn-wraper">
@@ -177,6 +177,8 @@ import showImageCard from '@/components/showImageCard.vue'
 import cardShowMore from '@/components/cardShowMore.vue'
 import { getSetting, getUserInfo, getUserOpenId } from '@/api/wechat.js'
 import Auth from '../../base/Auth'
+import api from '../../api/index'
+import {courseType, courseImg} from '../../utils/data'
 export default {
   components: {
     vueTabBar,
@@ -185,8 +187,15 @@ export default {
     cardShowMore,
     Auth
   },
+  computed: {
+  },
   data () {
     return {
+      courseImgPath: courseImg,
+      courseType: courseType,
+      keyword: '',
+      minPrice: 0,
+      maxPrice: 9007199254740991,
       isAuth: false,
       searchStyle: {
         bgColor: '#f2f2f2',
@@ -302,8 +311,6 @@ export default {
       ]
     }
   },
-  computed: {
-  },
   methods: {
     handleChange (e) {
       this.curIndex = e.mp.detail.current
@@ -373,6 +380,15 @@ export default {
       }
     })
     // let app = getApp()
+  },
+  onLoad () {
+    api.getCourseList({
+      keyword: this.keyword,
+      minPrice: this.minPrice,
+      maxPrice: this.maxPrice
+    }).then((res) => {
+      this.kcbaoming = res.data.data
+    })
   }
 }
 </script>
@@ -470,7 +486,7 @@ export default {
 .desc{
   padding: 10px; 
 }
-.card{
+.course-card{
   background-color: white
 }
 .btn-wraper{
@@ -496,5 +512,10 @@ export default {
 //附加
 .marginleft{
   margin-left: 10px 
+}
+.data{
+  font-size: $text-small;
+  color: $color-small;
+  padding-top: 10rpx;
 }
 </style>

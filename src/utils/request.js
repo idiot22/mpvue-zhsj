@@ -9,6 +9,7 @@ function initFly () {
 
 let fly = initFly()
 fly.config.timeout = 10 * 1000
+fly.config.headers.cookie = 'SESSION=29aaf52b-1081-41f4-84cc-a6fefe10ab71'
 fly.config.baseURL = 'https://zhsj.bnuz.edu.cn/ComprehensiveSys'
 fly.interceptors.request.use((request) => {
   wx.showLoading({ title: '拼命加载中...' })
@@ -23,12 +24,13 @@ fly.interceptors.response.use(
         title: response.data.detail,
         icon: 'none'
       })
-    } else {
-      wx.showToast({
-        title: response.data.msg,
-        icon: 'none'
-      })
     }
+    // else {
+    //   wx.showToast({
+    //     title: response.data.detail,
+    //     icon: 'none'
+    //   })
+    // }
     return promise.resolve(response.data)
   },
   (err, promise) => {

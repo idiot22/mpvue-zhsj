@@ -1,4 +1,5 @@
 const state = {
-  isFilter: false
+  isFilter: false,
+  studentId: ''
 }
 export default state

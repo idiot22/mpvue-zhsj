@@ -55,7 +55,12 @@
     "position": "bottom"
   },
   "usingComponents":{
-    "van-button": "../static/vant/button/index",
-    "van-tag": "../static/vant/tag/index"
+    "van-button": "../static/vant2/button/index",
+    "van-tag": "../static/vant2/tag/index",
+    "van-image": "../static/vant2/image/index",
+    "van-icon": "../static/vant2/icon/index",
+    "van-dropdown-menu": "../static/vant2/dropdown-menu/index",
+    "van-dropdown-item": "../static/vant2/dropdown-item/index",
+    "van-dialog": "../static/vant2/dialog/index"
   }
 }
