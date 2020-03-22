@@ -379,6 +379,8 @@ export function getOpenId (code) {
 
 + 修改雷达图点击显示
 
++ 进入动画this.animate不显示
+
 ## 数据绑定
 
 ### flyio的配置和优点
@@ -423,6 +425,41 @@ post方法options的配置可看userLogin函数
 ### 消息通知
 
 做已读接口的时候，由于后台**Access-Control-Allow-Origin**的限制，所以搭建本地服务器做代理
+
+### 雷达页
+
+1. 刷新雷达数据
+
+   ```
+   function refreshData (data) {
+     // 刷新数据
+     var option = chart.getOption()
+     option.series[0].data[0].value = data
+     chart.setOption(option)
+   }
+   ```
+
+2. 点击雷达显示数据
+
+   ```
+       tooltip: { // 触摸显示详情
+         trigger: 'item',
+         formatter: function (param) {
+           // 利用循环更改显示的内容
+           console.log(param)
+           let length = param.value.length
+           let txt = param.data.name + '\n'
+           for (let i = 0; i < length; i++) {
+             if (i === length - 1) {
+               txt += commentName[i] + '：' + param.value[i]
+               return txt
+             }
+             txt += commentName[i] + '：' + param.value[i] + '\n'
+           }
+         }}
+   ```
+
+   
 
 ## api
 
@@ -532,7 +569,25 @@ const url = '../subject/main'
 wx.switchTab({ url })
 ```
 
+7.做原生动画开发者工具动画正常，但是真机测试卡顿严重
 
+```
+.show-echart{
+  position: relative;
+  top:-140rpx;
+  border-radius: 50rpx  50rpx 0px 0px;
+  overflow: hidden;
+  animation: pop 1.5s;
+}
+@keyframes pop {
+  0%{top:-250rpx;}
+  70%{top: -140rpx}
+  85%{top: -150rpx}
+  100%{top: -140rpx}
+}
+```
+
+7.写雷达页this.animate is not defined为什么方法未找到
 
 
 ### vant

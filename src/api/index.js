@@ -49,6 +49,15 @@ function getMessages (params) {
 function isRead (params) {
   return post(`/student/read?messageId=${params}`)
 }
+
+// 获取学生课程
+function getStudentClass () {
+  return get(`/student/initStudentClass`)
+}
+// 获取雷达数据
+function getRadar (params) {
+  return get('/student/initRadar', params)
+}
 export default {
   getProvince,
   getCity,
@@ -59,5 +68,7 @@ export default {
   getCourseList,
   getNotices,
   getMessages,
-  isRead
+  isRead,
+  getStudentClass,
+  getRadar
 }

@@ -1,1 +1,7 @@
-{}
+{
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#00c5bc",
+    "navigationBarTitleText": "雷达",
+    "navigationBarTextStyle": "white",
+    "usingComponents": {}
+}

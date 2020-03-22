@@ -86,6 +86,13 @@
 					"id": -1,
 					"name": "pages/index/main",
 					"pathName": "pages/index/main",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/radar/main",
+					"pathName": "pages/radar/main",
 					"scene": null
 				}
 			]
