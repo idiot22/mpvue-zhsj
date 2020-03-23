@@ -58,6 +58,10 @@ function getStudentClass () {
 function getRadar (params) {
   return get('/student/initRadar', params)
 }
+// 获取订单
+function getMyOrder (params) {
+  return get('/student/getMyOrder', params)
+}
 export default {
   getProvince,
   getCity,
@@ -70,5 +74,6 @@ export default {
   getMessages,
   isRead,
   getStudentClass,
-  getRadar
+  getRadar,
+  getMyOrder
 }

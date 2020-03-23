@@ -1,8 +1,9 @@
 {
   "pages": [
+    "pages/order/main",
+    "pages/radar/main",
     "pages/login/main",
     "pages/index/main",
-    "pages/radar/main",
     "pages/info-list/main",
     "pages/list/main",
     "pages/courseInfo/main",
