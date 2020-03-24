@@ -62,6 +62,13 @@ function getRadar (params) {
 function getMyOrder (params) {
   return get('/student/getMyOrder', params)
 }
+function initStudentClass () {
+  return get('/student/initStudentClass')
+}
+// 作品墙
+function getWorkWall (params) {
+  return get('/student/getAllProduct', params)
+}
 export default {
   getProvince,
   getCity,
@@ -75,5 +82,7 @@ export default {
   isRead,
   getStudentClass,
   getRadar,
-  getMyOrder
+  getMyOrder,
+  initStudentClass,
+  getWorkWall
 }

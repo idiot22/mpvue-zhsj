@@ -35,3 +35,8 @@ export let courseImg = [
   'http://localhost/zhsj/image/courses/pilot.jpg',
   'http://localhost/zhsj/image/courses/science.png'
 ]
+
+export let postType = {
+  form_post_works: '作品',
+  form_post_application: '作品应用'
+}

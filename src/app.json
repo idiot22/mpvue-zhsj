@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/works-wall/main",
     "pages/order/main",
     "pages/radar/main",
     "pages/login/main",
@@ -62,6 +63,8 @@
     "van-icon": "../static/vant2/icon/index",
     "van-dropdown-menu": "../static/vant2/dropdown-menu/index",
     "van-dropdown-item": "../static/vant2/dropdown-item/index",
-    "van-dialog": "../static/vant2/dialog/index"
+    "van-dialog": "../static/vant2/dialog/index",
+    "van-tab": "../static/vant2/tab/index",
+    "van-tabs": "../static/vant2/tabs/index"
   }
 }

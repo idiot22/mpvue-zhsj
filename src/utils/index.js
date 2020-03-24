@@ -25,6 +25,13 @@ export function formatDate (date) {
   const t1 = [year, month, day].map(formatNumber).join('-')
   return t1
 }
+export function getTimeDiff (startTime, endTime) {
+  let start = new Date(startTime)
+  let end = new Date(endTime)
+  let diffTime = end - start
+  let month = diffTime.getMonth() + 1
+  return month
+}
 export default {
   formatNumber,
   formatTime,

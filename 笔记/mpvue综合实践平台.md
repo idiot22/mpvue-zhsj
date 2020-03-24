@@ -381,6 +381,62 @@ export function getOpenId (code) {
 
 + 进入动画this.animate不显示
 
+### 我的订单
+
++ 去掉标题
+
+  "navigationStyle": "custom"
+
++ 卡券样式制作
+
+  ```
+          <div data-v-297409b4="" class="hollow-two-circles" 
+            v-for=" (item,index) in orderData[activeTab]" :key='index'>
+            <div class="title">
+              <span>{{item.className}}</span>
+              <span class="mark" v-if='activeTab === 0'>继续支付</span>
+            </div>
+            <span class="time"><van-icon name="clock-o" /> {{item.date}}</span><br>
+            <span class="money">￥{{item.payStatus}}</span>
+            <img src="/static/images/order/finish.png" class="mark2" v-if="activeTab === 1">
+            <img src="/static/images/order/quxiao.png" class="mark2" v-if="activeTab === 2">
+          </div>
+  ```
+
+  
+
+  ```css
+    // quan
+    .hollow-two-circles {
+      overflow: hidden;
+      padding: 10px;
+      margin-bottom: 20px;
+      box-sizing: border-box;
+      width: 264px;
+      border-radius: 10rpx;
+      height: 100px;
+      position: relative;
+      background: radial-gradient(circle at right bottom, transparent 6px, #fff 0) top right / 51% 40px no-repeat,
+        radial-gradient(circle at left bottom, transparent 6px, #fff 0) top left / 51% 40px no-repeat,
+        radial-gradient(circle at right top, transparent 6px, #fff 0) bottom right / 51% 60px no-repeat,
+        radial-gradient(circle at left top, transparent 6px, #fff 0) bottom left / 51% 60px no-repeat;
+      filter: drop-shadow(4rpx 4rpx 10rpx rgba(0,0,0,0.1));
+  }
+  
+  .hollow-two-circles::after {
+    content: '';
+    width: 244px;
+    border: 0.5px dashed $color-line;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 40px;
+    margin: auto;
+  }
+  ```
+
+  
+
 ## 数据绑定
 
 ### flyio的配置和优点
