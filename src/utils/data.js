@@ -40,3 +40,9 @@ export let postType = {
   form_post_works: '作品',
   form_post_application: '作品应用'
 }
+export let courseTypeDui = {
+  form_post_yanxue: '研学',
+  form_post_shijian: '实践',
+  form_post_fuwu: '服务',
+  form_post_xingqu: '兴趣'
+}

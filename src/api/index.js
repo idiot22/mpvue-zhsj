@@ -69,6 +69,15 @@ function initStudentClass () {
 function getWorkWall (params) {
   return get('/student/getAllProduct', params)
 }
+// 提交作品课程
+function getMyCourse (params) {
+  return get('/student/getMyCourse', params)
+}
+// 提交
+function uploadImg (params) {
+  let options = {headers: {'content-type': 'application/x-www-form-urlencoded'}}
+  return post('/student/postProduct', params, options)
+}
 export default {
   getProvince,
   getCity,
@@ -84,5 +93,7 @@ export default {
   getRadar,
   getMyOrder,
   initStudentClass,
-  getWorkWall
+  getWorkWall,
+  getMyCourse,
+  uploadImg
 }

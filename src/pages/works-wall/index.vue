@@ -1,5 +1,5 @@
 <template>
-  <div class="radar">
+  <div class="wall">
     <div class="bg">
       <img src="/static/images/zuopin/zuopin.png" alt="">
       <div class="title">

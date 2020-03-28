@@ -1,5 +1,8 @@
 {
   "pages": [
+    "pages/plan/main",
+    "pages/tijiao/main",
+    "pages/zuopin/main",
     "pages/works-wall/main",
     "pages/order/main",
     "pages/radar/main",
@@ -65,6 +68,7 @@
     "van-dropdown-item": "../static/vant2/dropdown-item/index",
     "van-dialog": "../static/vant2/dialog/index",
     "van-tab": "../static/vant2/tab/index",
-    "van-tabs": "../static/vant2/tabs/index"
+    "van-tabs": "../static/vant2/tabs/index",
+    "van-uploader":"../static/vant2/uploader/index"
   }
 }
