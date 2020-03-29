@@ -1,52 +1,72 @@
 <template>
   <div class="list">
-    <filter :filterData='filterData'></filter>
-    <div class="title-bar">
-      <div class="filter-wraper" @click="showFilter">
-        <span>筛选</span>
-        <i class="iconfont icon--xialajiantou"></i>
-      </div>
-      <div class="search-wraper">
-        <van-search
-          :value="value"
-          placeholder="请输入搜索关键词"
-          :shape="'round'"
-          :background="'#f2f2f2'"
-          @change="onChange"
-          @search="onSearch"
-          @focus = "toPageMore">
-        </van-search>
+    <div class="bg">
+      <div class="intro">
+        按照课程名来搜索相应课程！
       </div>
     </div>
     <div class="content">
-      <van-card
-          class="card"
-          num="最新课程"
-          :price="item.price"
-          :title="item.title"
-          title-class='title-class'
-          :thumb="item.courseImg"
-          :origin-price="'4000'"
-          v-for="(item,index) in  list"
-          :key="index"
-          >
-          <div slot="desc">
-            <van-tag plain class='desc-tag'>一年级</van-tag>
+      <div class="zong-wraper">
+        <div class='search-wraper' :animation='animSearch'>
+          <input  class="input" :style="isStretch ? 'display:block' :''"
+            @blur="searchAniBack(e)"
+            v-model="searchVal"
+            @input="$emit('input',$event.mp.detail.value)">
+        </div>
+        <div class="search-circle" @click="clickSearchAni" :animation='animBtn'>
+          <span>
+            <van-icon name="search"/>
+          </span>
+        </div>
+      </div>
+      <div class="list">
+        <div class="course-wraper" v-for='(item,index) in courseList' :key="index">
+          <div class="left">
+            <van-image
+              width="100"
+              height="100"
+              fit="fill"
+              :src="baseUrl+'/'+item.courseImgUrl"
+            />
           </div>
-      </van-card>    
-    </div>
+          <div class="right">
+            <div class="title">{{item.className}}</div>
+            <div class="tag">
+              <van-tag type="success" round plain color='#00c5bc'>{{courseType[item.courseType]}}</van-tag>&nbsp;
+              <van-tag type="success" round plain color='#00c5bc'>{{interestType[item.courseType]}}</van-tag>
+            </div>
+            <div class="time">{{item.payStartTime}}~{{item.payEndTime}}</div>
+            <div class="info">
+              <span class="money">￥{{item.coursePrice}}</span>
+              <span class="yuliang">x{{item.remain}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>    
   </div>
 </template>
 
 <script>
 import filter from '../../components/filter'
 import {mapMutations} from 'vuex'
+import api from '../../api/index'
+import {courseType} from '../../utils/data'
+import { baseUrl } from '../../utils/const'
 export default {
   components: {
     filter
   },
   data () {
     return {
+      baseUrl: baseUrl,
+      interestType: ['非兴趣', '兴趣'],
+      courseType: courseType,
+      courseList: [],
+      searchVal: '',
+      isStretch: false,
+      animSearch: {},
+      animBtn: {},
       filterData: [
         {
           title: '年级',
@@ -192,42 +212,157 @@ export default {
     ...mapMutations({setfilter: 'SETISFILTER'}),
     showFilter () {
       this.setfilter(true)
+    },
+    clickSearchAni () {
+      if (!this.isStretch) {
+        var animationSearch = wx.createAnimation({
+          duration: 500,
+          timingFunction: 'ease-out'
+        })
+        var animationBtn = wx.createAnimation({
+          duration: 500,
+          timingFunction: 'ease-out'
+        })
+        animationSearch.width(250).step()
+        animationBtn.translateX(100).step()
+        this.animSearch = animationSearch.export()
+        this.animBtn = animationBtn.export()
+        this.isStretch = true
+      } else {
+        this.search()
+      }
+    },
+    searchAniBack () {
+      var animationSearch = wx.createAnimation({
+        duration: 500,
+        timingFunction: 'ease-out'
+      })
+      var animationBtn = wx.createAnimation({
+        duration: 500,
+        timingFunction: 'ease-out'
+      })
+      animationSearch.width(50).step()
+      animationBtn.translateX(0).step()
+      this.animSearch = animationSearch.export()
+      this.animBtn = animationBtn.export()
+      this.isStretch = false
+    },
+    search () {
+      api.getCourseList({
+        keyword: this.searchVal,
+        minPrice: 0,
+        maxPrice: 9007199254740991
+      }).then((res) => {
+        this.courseList = res.data.data
+      })
     }
+  },
+  onLoad () {
+    this.search()
   }
 }
 </script>
 
 <style lang='scss' scoped>
 @import '../../common/styles/mixin.scss';
-.list{
-  width: 100%;
-  height: 100%;
-  .filter{
-    position: absolute;
-    z-index: 100;
-    width: 100%;
-    height: 100%;
-  }
-  .title-bar{
-    display: flex;
-    .filter-wraper{
-      background: #f2f2f2;
-      width:60px;
-      font-size:$text-medium;
-      display: flex;
-      padding-left: 15px;
-      justify-content: space-around;
-      align-items: center;
-      box-sizing: border-box;
-      color: $color-small;
-    }
-    .search-wraper{
-      flex: 1
-    }
-  }
-  .content{
-    padding-top: 20px;
+
+.bg{
+  width:100%;
+  height: 200px;
+  background: $main-color;
+  background-image: #03c8bb;
+  position: relative;
+  .intro{
+    width:50%;
+    margin: 0px 25%;
+    box-sizing: border-box;
+    font-size: 13px;
+    color: white;
+    padding: 35px 0px
   }
 }
-
+.content{
+  width:100%;
+  background: white;
+  position: relative;
+  top: -220rpx;
+  padding: 20px;
+  padding-top: 40px;
+  box-sizing: border-box;
+  border-radius: 100rpx 100rpx 0rpx 0rpx;
+  min-height: 300px;
+}
+.zong-wraper{
+  display: flex;
+  justify-content: center;
+}
+.search-circle{
+  position: absolute;
+  width:50px;
+  height:50px;
+  background: white;
+  border-radius: 50px;
+  line-height: 55px;
+  text-align: center;
+  color: $color-small;
+  font-size:25px;
+  left: 50%;
+  margin-left: -25px;
+  margin-top:-65px
+}
+.search-wraper{
+  width:50px;
+  height:50px;
+  border-radius: 50px;
+  position: absolute;
+  top:-25px;
+  background: white;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  box-sizing: border-box;
+  .input{
+    display: none;
+  }
+}
+.course-wraper{
+  display: flex;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+  margin-bottom: 20px;
+  .left{
+    margin-right: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .right{
+    .title{
+      color:$main-txt;
+      font-size: $text-big;
+      font-weight: 300;
+    }
+    .time{
+      color:$color-shallow;
+      font-size: $text-small;
+      padding: 5px 0px;
+    }
+    .info{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .money{
+        color:$yellow-color;
+        font-size:$text-large;
+        font-weight: 800;
+      }
+      .yuliang{
+        color:$main-color;
+        font-size:$text-medium;
+        margin-right:0px        
+      }
+    }
+  }
+}
 </style>

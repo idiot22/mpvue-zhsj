@@ -165,7 +165,7 @@ export default {
     position:relative;
     font-size: 80rpx;
     padding: 70rpx;
-    padding-bottom: 30rpx;
+    padding-bottom: 20rpx;
     color: white;
     font-weight: 900;
     display: flex;

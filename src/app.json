@@ -1,5 +1,7 @@
 {
   "pages": [
+    "pages/list/main",
+    "pages/index/main",
     "pages/plan/main",
     "pages/tijiao/main",
     "pages/zuopin/main",
@@ -7,9 +9,7 @@
     "pages/order/main",
     "pages/radar/main",
     "pages/login/main",
-    "pages/index/main",
     "pages/info-list/main",
-    "pages/list/main",
     "pages/courseInfo/main",
     "pages/logs/main",
     "pages/counter/main",

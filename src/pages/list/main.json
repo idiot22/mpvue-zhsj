@@ -11,5 +11,9 @@
         "van-panel": "/static/vant2/panel/index",
         "van-swipe-cell": "/static/vant2/swipe-cell/index",
         "van-cell-group": "/static/vant2/cell-group/index"
-    }
+    },
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#03c8bb",
+    "navigationBarTitleText": "选课",
+    "navigationBarTextStyle": "white"
 }
