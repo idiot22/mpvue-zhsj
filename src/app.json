@@ -2,6 +2,7 @@
   "pages": [
     "pages/list/main",
     "pages/index/main",
+    "pages/courseInfo/main",
     "pages/plan/main",
     "pages/tijiao/main",
     "pages/zuopin/main",
@@ -10,7 +11,6 @@
     "pages/radar/main",
     "pages/login/main",
     "pages/info-list/main",
-    "pages/courseInfo/main",
     "pages/logs/main",
     "pages/counter/main",
     "pages/person/main",
@@ -69,6 +69,11 @@
     "van-dialog": "../static/vant2/dialog/index",
     "van-tab": "../static/vant2/tab/index",
     "van-tabs": "../static/vant2/tabs/index",
-    "van-uploader":"../static/vant2/uploader/index"
+    "van-uploader":"../static/vant2/uploader/index",
+    "van-action-sheet": "../static/vant2/action-sheet/index",
+    "van-popup": "../static/vant2/popup/index",
+    "van-collapse": "../static/vant2/collapse/index",
+    "van-collapse-item": "../static/vant2/collapse-item/index",
+    "van-submit-bar": "../static/vant2/submit-bar/index"
   }
 }

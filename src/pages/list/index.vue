@@ -2,8 +2,7 @@
   <div class="list">
     <div class="bg">
       <div class="intro">
-        按照课程名来搜索相应课程！
-      </div>
+        按照课程名来搜索相应课程 !</div>
     </div>
     <div class="content">
       <div class="zong-wraper">
@@ -20,20 +19,21 @@
         </div>
       </div>
       <div class="list">
-        <div class="course-wraper" v-for='(item,index) in courseList' :key="index">
+        <div class="course-wraper" v-for='(item,index) in courseList' :key="index" @click="showInfo(index)">
           <div class="left">
             <van-image
               width="100"
               height="100"
               fit="fill"
+              lazy-load
               :src="baseUrl+'/'+item.courseImgUrl"
             />
           </div>
           <div class="right">
             <div class="title">{{item.className}}</div>
             <div class="tag">
-              <van-tag type="success" round plain color='#00c5bc'>{{courseType[item.courseType]}}</van-tag>&nbsp;
-              <van-tag type="success" round plain color='#00c5bc'>{{interestType[item.courseType]}}</van-tag>
+              <van-tag type="success" round plain color='#00c5bc' v-if="courseType[item.courseType]">{{courseType[item.courseType]}}</van-tag>&nbsp;
+              <van-tag type="success" round plain color='#00c5bc' v-if="interestType[item.courseType]">{{interestType[item.courseType]}}</van-tag>
             </div>
             <div class="time">{{item.payStartTime}}~{{item.payEndTime}}</div>
             <div class="info">
@@ -43,7 +43,13 @@
           </div>
         </div>
       </div>
-    </div>    
+    </div>
+    <!--课程详情-->
+    <van-action-sheet :show="showDetail" @close='closeInfo'>
+      <div style="height:100%">
+        <courseInfo :data='courseList[chooseKcIndex]'></courseInfo>
+      </div>
+    </van-action-sheet>    
   </div>
 </template>
 
@@ -53,14 +59,18 @@ import {mapMutations} from 'vuex'
 import api from '../../api/index'
 import {courseType} from '../../utils/data'
 import { baseUrl } from '../../utils/const'
+import courseInfo from '../courseInfo'
 export default {
   components: {
-    filter
+    filter,
+    courseInfo
   },
   data () {
     return {
+      showDetail: false,
+      chooseKcIndex: 0,
       baseUrl: baseUrl,
-      interestType: ['非兴趣', '兴趣'],
+      interestType: ['非兴趣', '科学益智', '舞蹈体育类'],
       courseType: courseType,
       courseList: [],
       searchVal: '',
@@ -255,6 +265,13 @@ export default {
       }).then((res) => {
         this.courseList = res.data.data
       })
+    },
+    showInfo (index) {
+      this.chooseKcIndex = index
+      this.showDetail = true
+    },
+    closeInfo () {
+      this.showDetail = false
     }
   },
   onLoad () {
@@ -278,7 +295,8 @@ export default {
     box-sizing: border-box;
     font-size: 13px;
     color: white;
-    padding: 35px 0px
+    padding: 35px 0px;
+    text-align: center;
   }
 }
 .content{

@@ -2,7 +2,7 @@
   <div class="panel">
       <div class="title">{{title}}</div>
       <div class="content">
-          <slot></slot>
+          <slot>3534</slot>
       </div>
   </div>
 </template>

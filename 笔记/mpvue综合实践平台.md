@@ -669,6 +669,10 @@ wx.switchTab({ url })
 </style>
 ```
 
+2.选课列表中，点击课程弹出课程详情，关闭不了
+
+给van-action-sheet添加@close方法，当点击黑色的就触发close方法将showDetail置为
+
 ### 布局
 
 1.scroll-view横向滚动无效（看首页过程解决）

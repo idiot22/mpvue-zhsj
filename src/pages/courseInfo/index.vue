@@ -1,80 +1,92 @@
 <template>
   <div>
     <div class="bg-wraper">
-      <div>
-        <p class="course-name">A4纸竞赛</p>
-        <p class="grade">适用年纪:4</p>
+      <img :src="baseUrl +data.courseImgUrl" alt="">
+      <div style="position:absolute;top: 30px;">
+        <p class="course-name">{{data.className}}</p>
+        <p class="grade">适用年纪:{{data.fitGradeId}}</p>
       </div>
     </div>
-    <van-tabs animated sticky>
-      <van-tab title="课程简介">
         <div class="wraper">
-          <div class="introduce-wraper">
-            <p class="price">课程费用：500</p>
-            <div class="info-wraper">
-              <div class="iconfont icon-xueshimao">适用年级：4</div>
-              <div><van-icon name="column" />课程归属:</div>
-              <div><van-icon name="manager" />任课教师：</div>
-            </div>
+          <div class="panel2">
+              <div class="title">课程信息</div>
+              <div class="content">
+                <p style="margin-bottom:10px">
+                  <van-icon name="gold-coin-o" class="iconfont"/>
+                   支付时间：{{data.payStartTime+'~'+data.payEndTime}}
+                </p>
+                <p style="margin-bottom:10px"> 
+                  <van-icon name="calender-o" class="iconfont"/>
+                  开班时间：{{data.otherTimeDto[0].courseStartDate+'~'+data.otherTimeDto[0].courseEndDate}}
+                </p>
+                <p>
+                  <van-icon name="clock-o" class="iconfont"/> 
+                  上课时间：{{data.otherTimeDto[0].courseStartTime+'~'+data.otherTimeDto[0].courseEndTime}}
+                </p>
+              </div>
           </div>
-          <panel :title="'课程简介'">
-              <div>
-                  <p class="text">本课程发达的撒法发发射点范德萨范德萨打发撒非法上访
-                  的打法发范德萨打发士大夫撒旦发生的方法士大夫随风倒
-                  士大夫是放大方法大胜多负少
-                  </p>
+          <div class="panel2">
+              <div class="title">课程任务</div>
+              <div class="content">
+                <p>{{data.courseMission}}</p>
               </div>
-          </panel>
-          <panel :title="'课程目标'">
-              <div>
-                  <p class="text">本课程发达的撒法发发射点范德萨范德萨打发撒非法上访
-                  的打法发范德萨打发士大夫撒旦发生的方法士大夫随风倒
-                  士大夫是放大方法大胜多负少
-                  </p>
+          </div>
+          <div class="panel2">
+              <div class="title">课程目标</div>
+              <div class="content">
+                <p>{{data.courseTarget}}</p>
               </div>
-          </panel>
-          <panel :title="'课程准备'">
-              <div>
-                  <p class="text">本课程发达的撒法发发射点范德萨范德萨打发撒非法上访
-                  的打法发范德萨打发士大夫撒旦发生的方法士大夫随风倒
-                  士大夫是放大方法大胜多负少
-                  </p>
+          </div>
+          <div class="panel2">
+              <div class="title">课程描述</div>
+              <div class="content">
+                <p>{{courseExplanation}}</p>
               </div>
-          </panel>
+          </div>
+          <div class="panel2">
+              <div class="title">课程准备</div>
+              <div class="content" style="padding-bottom: 60px;">
+                <p>{{coursePrepare}}</p>
+              </div>
+          </div>
+          <van-submit-bar
+            :price="data.coursePrice"
+            button-text="创建订单"
+            @submit="onSubmit"
+          />
         </div>
-      </van-tab>
-      <van-tab title="时间">
-        <div class="wraper">
-          <panel :title="'报名时间'">
-              <div class="bm">
-                <p><van-icon name="clock-o" /> 开始：</p>
-                <p><van-icon name="underway-o" /> 截止：</p>
-                <p><van-icon name="friends-o" /> 人数：999</p>
-              </div>
-          </panel>
-          <panel :title="'上课时间'">
-              <div class="bm">
-                <p class="iconfont icon-rili"> 开始：</p>
-                <p><van-icon name="clock-o" /> 开始：</p>
-                <p><van-icon name="clock-o" /> 结束：</p>
-              </div>
-          </panel>
-        </div>
-      </van-tab>
-      <van-tab title="评价">
-        <div>
-
-        </div>
-      </van-tab>
-    </van-tabs>
   </div>
 </template>
 
 <script>
 import panel from '../../components/panel'
+import { baseUrl } from '../../utils/const'
 export default {
+  props: {
+    data: {
+      type: Object
+    }
+  },
   components: {
     panel
+  },
+  data () {
+    return {
+      baseUrl: baseUrl
+    }
+  },
+  computed: {
+    coursePrepare () {
+      return this.data.coursePrepare ? this.data.coursePrepare : '无'
+    },
+    courseExplanation () {
+      return this.data.courseExplanation ? this.data.courseExplanation : '无'
+    }
+  },
+  methods: {
+    onSubmit () {
+      console.log('创建订单')
+    }
   }
 }
 </script>
@@ -86,11 +98,18 @@ page {
 <style lang='scss' scoped>
 @import '../../common/styles/mixin.scss';
 //bg
+.wraper{
+  height: 300px;
+}
 .bg-wraper{
   width: 100%;
   position: relative;
   display: table;
   height: 145px;
+  img{
+    width:100%;
+    height:100%;
+  }
   &::before{
     position: absolute;
     top:0px;
@@ -108,7 +127,9 @@ page {
     color: white;
     padding: 20px;
     .course-name{
+      font-weight: 800;
       padding-bottom: 5px;
+      font-size: $text-large;
     }
   }
 }
@@ -148,5 +169,28 @@ page {
   font-size: $text-medium;
   color: $color-small;
   line-height: 25px
+}
+//panel
+.panel2{
+  width: 100%;
+  padding: 10px;
+  background: white;box-sizing: border-box;
+  color: $color-small;
+  font-size: $text-small;
+  .title{
+    font-weight: bold;
+    font-size: 15px;
+    color: $main-color;
+    padding-bottom: 10px;
+    border-bottom:#E0E3DA 1px solid;
+    box-sizing: border-box;
+  }
+  .content{
+    padding-top:10px; 
+    p{
+      display: flex;
+      align-items: center;
+    }
+  }
 }
 </style>
