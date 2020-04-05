@@ -438,6 +438,18 @@ export function getOpenId (code) {
 
 ### 提交界面
 
+### 活动列表
+
+1.多行省略
+
+```
+overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;（行数）
+    -webkit-box-orient: vertical;
+```
+
 
 
 ## 数据绑定

@@ -78,6 +78,10 @@ function uploadImg (params) {
   let options = {headers: {'content-type': 'application/x-www-form-urlencoded'}}
   return post('/student/postProduct', params, options)
 }
+// 获取活动列表
+function getAllActivities (params) {
+  return post('/api/activity/getAllActivities', params)
+}
 export default {
   getProvince,
   getCity,
@@ -95,5 +99,6 @@ export default {
   initStudentClass,
   getWorkWall,
   getMyCourse,
-  uploadImg
+  uploadImg,
+  getAllActivities
 }

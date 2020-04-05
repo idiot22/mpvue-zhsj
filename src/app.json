@@ -1,6 +1,8 @@
 {
   "pages": [
-    "pages/list/main",
+    "pages/activeInfo/main",
+    "pages/active-list/main",
+    "pages/course-list/main",
     "pages/index/main",
     "pages/courseInfo/main",
     "pages/plan/main",
