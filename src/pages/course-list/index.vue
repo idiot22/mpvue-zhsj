@@ -295,7 +295,7 @@ export default {
     box-sizing: border-box;
     font-size: 13px;
     color: white;
-    padding: 35px 0px;
+    padding: 25px 0px;
     text-align: center;
   }
 }
@@ -348,7 +348,7 @@ export default {
   display: flex;
   padding: 10px;
   border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
   margin-bottom: 20px;
   .left{
     margin-right: 20px;

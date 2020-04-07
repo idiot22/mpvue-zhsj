@@ -1,0 +1,19 @@
+{
+    "usingComponents":{
+        "van-button": "/static/vant2/button/index",
+        "van-search": "/static/vant2/search/index",
+        "van-row": "/static/vant2/row/index",
+        "van-col": "/static/vant2/col/index",
+        "van-cell": "/static/vant2/cell/index",
+        "van-icon": "/static/vant2/icon/index",
+        "van-card": "/static/vant2/card/index",
+        "van-tag": "/static/vant2/tag/index",
+        "van-panel": "/static/vant2/panel/index",
+        "van-swipe-cell": "/static/vant2/swipe-cell/index",
+        "van-cell-group": "/static/vant2/cell-group/index"
+    },
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#03c8bb",
+    "navigationBarTitleText": "申报",
+    "navigationBarTextStyle": "white"
+}

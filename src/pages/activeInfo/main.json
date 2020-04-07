@@ -1,3 +1,6 @@
 {
-    "navigationStyle": "custom"
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#00c5bc",
+    "navigationBarTitleText": "活动",
+    "navigationBarTextStyle": "white"
 }

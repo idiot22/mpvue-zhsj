@@ -82,6 +82,27 @@ function uploadImg (params) {
 function getAllActivities (params) {
   return post('/api/activity/getAllActivities', params)
 }
+// 获取活动详情
+function getActivyDetail (id) {
+  return post(`/api/activity/activityDetail/activity/${id}`)
+}
+// getTeam
+function getTeam (id) {
+  return get(`/student/Team/${id}`)
+}
+// 报名
+function signUp (params, teamId, processId, contactId) {
+  let options = {headers: {'content-type': 'application/x-www-form-urlencoded'}}
+  return post(`/student/Team/${teamId}/${processId}/${contactId}`, params, options)
+}
+// 获取学生的详细信息
+function getStudentDetail () {
+  return get('/student/getStudentDetail')
+}
+// 创建group
+function addGroup (params, item) {
+  return post(`/student/Team/${item.studentId}?processId=${item.processId}&teamName=${item.teamName}&teamType=${item.teamType}&parentMen=${item.parentMen}&parentWomen=${item.parentWomen}`, params)
+}
 export default {
   getProvince,
   getCity,
@@ -100,5 +121,10 @@ export default {
   getWorkWall,
   getMyCourse,
   uploadImg,
-  getAllActivities
+  getAllActivities,
+  getActivyDetail,
+  getTeam,
+  signUp,
+  getStudentDetail,
+  addGroup
 }

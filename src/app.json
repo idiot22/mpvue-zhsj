@@ -1,7 +1,10 @@
 {
   "pages": [
-    "pages/activeInfo/main",
+    "pages/report/main",
     "pages/active-list/main",
+    "pages/group/main",
+    "pages/addGroup/main",
+    "pages/activeInfo/main",
     "pages/course-list/main",
     "pages/index/main",
     "pages/courseInfo/main",
@@ -76,6 +79,6 @@
     "van-popup": "../static/vant2/popup/index",
     "van-collapse": "../static/vant2/collapse/index",
     "van-collapse-item": "../static/vant2/collapse-item/index",
-    "van-submit-bar": "../static/vant2/submit-bar/index"
-  }
+    "van-submit-bar": "../static/vant2/submit-bar/index",
+    "van-field":"../static/vant2/field/index"}
 }

@@ -19,7 +19,10 @@
         </div>
       </div>
       <div class="list">
-        <div class="course-wraper" v-for='(item,index) in activeList' :key="index" @click="showInfo(index)">
+        <div 
+          class="course-wraper" v-for='(item,index) in activeList' 
+          :key="index" 
+          @click="showInfo(index)">
           <div class="left">
             <van-image
               width="100"
@@ -61,7 +64,6 @@ import { baseUrl } from '../../utils/const'
 export default {
   data () {
     return {
-      showDetail: false,
       chooseKcIndex: 0,
       baseUrl: baseUrl,
       interestType: ['非兴趣', '科学益智', '舞蹈体育类'],
@@ -113,21 +115,15 @@ export default {
       this.isStretch = false
     },
     search () {
-      console.log('搜索')
       api.getAllActivities({
         keyword: this.searchVal
       }).then((res) => {
-        console.log(res)
         this.activeList = res.data.data
-        console.log(this.activeList)
       })
     },
     showInfo (index) {
-      this.chooseKcIndex = index
-      this.showDetail = true
-    },
-    closeInfo () {
-      this.showDetail = false
+      let id = this.activeList[index].activityId
+      this.$router.push({ path: '../activeInfo/main', query: {id: id} })
     }
   },
   onLoad () {
@@ -151,7 +147,7 @@ export default {
     box-sizing: border-box;
     font-size: 13px;
     color: white;
-    padding: 35px 0px;
+    padding: 25px 0px;
     text-align: center;
   }
 }
@@ -190,6 +186,7 @@ export default {
   border-radius: 50px;
   position: absolute;
   top:-25px;
+  background: white;
   box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
   display: flex;
   align-items: center;
