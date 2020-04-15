@@ -3,13 +3,13 @@
     <div class="person-bgimg" style='background-image:url(../../static/images/bg/1.jpg)'></div>
     <div class="top-bar" :style="topBarStyle">
       <div class="avatar">
-          <avatar :src="'../../static/images/loading.jpeg'" :scale='0.62' ></avatar>
+          <avatar :src="''" :scale='0.62' ></avatar>
       </div>
       <span class="name" :class="showTop ?  'ani-name' : ''">姚佳苗</span>
     </div>
     <div class="person-info-wraper" :style="{top:personTop+'px',opacity:scrollY <= 0 ? 0 : ''}">
       <div class="avatar-wraper">
-        <avatar :src="'../../static/images/loading.jpeg'" :scale='avatarScale'></avatar>
+        <avatar :src="''" :scale='avatarScale'></avatar>
         <div class="person-info">
           <div class="name-wraper">
             <span class="name" :style="showTop ? 'opacity:0' : ''">姚佳苗</span>
@@ -31,7 +31,7 @@
       <scroll-view class='scroll' scroll-y="true" style="height: 430px;" @scroll='scroll'>
             <div class="person-info-wraper person-info-wraper2"  :style="scrollY <= 0 ? 'opacity:1' : ''">
               <div class="avatar-wraper">
-                <avatar :src="'../../static/images/loading.jpeg'"></avatar>
+                <avatar :src="''"></avatar>
                 <div class="person-info">
                   <div class="name-wraper">
                     <span class="name">姚佳苗</span>

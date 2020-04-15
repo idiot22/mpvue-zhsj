@@ -1,5 +1,6 @@
 <template>
-  <div class="login" style="background: url('../../../static/images/bg/2.jpg');background-size: 100% 100%;">
+  <div class="login" style="background-size: 100% 100%;">
+    <img src="../../../static/images/bg/2.jpg" alt="" srcset="" class="bg">
     <!--登录-->
     <div class="owl-wraper">
       <div class="left-hand"  :class="[isFocusPwd == 0 ? 'ani-left-hand' : (isFocusPwd == 1 ? 'ani-left-hand-leave' : '')]"></div>
@@ -309,11 +310,19 @@ export default {
 <style lang='scss' scoped>
 @import '../../common/styles/mixin.scss';
 .login{
+    position: relative;
     width: 100%;
-    padding: 0px 5%;
+    padding: 50px 5%;
     height: 100%;
-    padding-top:1px; 
+    padding-top:50px; 
     overflow: hidden;
+    .bg{
+      position: absolute;
+      left:0px;
+      top:0px;
+      width:100%;
+      height:100%
+    }
 }
 .card{
     position: relative;
@@ -321,7 +330,7 @@ export default {
     background: white;
     width: 90%;
     border-radius: 10px;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
     padding: 20px;
     box-sizing: border-box;
     padding: 20px;

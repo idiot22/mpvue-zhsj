@@ -4,5 +4,9 @@
         "van-tabs": "/static/vant2/tabs/index",
         "van-icon": "/static/vant2/icon/index",
         "van-divider": "/static/vant2/divider/index"
-    }
+    },
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#03c8bb",
+    "navigationBarTitleText": "通知",
+    "navigationBarTextStyle": "white"
 }

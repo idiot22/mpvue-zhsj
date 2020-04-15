@@ -103,6 +103,23 @@ function getStudentDetail () {
 function addGroup (params, item) {
   return post(`/student/Team/${item.studentId}?processId=${item.processId}&teamName=${item.teamName}&teamType=${item.teamType}&parentMen=${item.parentMen}&parentWomen=${item.parentWomen}`, params)
 }
+// 素养
+function initCurrencyType () {
+  return get('/student/initCurrencyType')
+}
+// 申报
+function report (params) {
+  return post('/student/customDeclare', params)
+}
+// 获取历史申报
+function getMyDeclare (week) {
+  return get('/student/getMyDeclare', {week: week})
+}
+// 提交作品
+function postZuopin (params) {
+  let options = {headers: {'content-type': 'multipart/form-data'}}
+  return post('/student/postProduct', params, options)
+}
 export default {
   getProvince,
   getCity,
@@ -126,5 +143,9 @@ export default {
   getTeam,
   signUp,
   getStudentDetail,
-  addGroup
+  addGroup,
+  initCurrencyType,
+  report,
+  getMyDeclare,
+  postZuopin
 }

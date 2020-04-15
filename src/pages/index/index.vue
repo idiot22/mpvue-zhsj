@@ -1,22 +1,5 @@
 <template>
   <div class="index">
-    <auth v-if="isAuth" @getUserInfo='_getSetting'></auth>
-    <!--search-->
-    <div class="search-wraper"> 
-      <van-search
-            :value="value"
-            :background="searchStyle.bgColor"
-            placeholder="请输入搜索关键词"
-            :shape="searchStyle.shape"
-            use-action-slot
-            class="reset"
-            @change="onChange"
-            @search="onSearch"
-            @focus = "toPageMore">
-            <view slot="action" @click="onSearch" >搜索</view>
-      </van-search>
-    </div>
-    <!--/search-->
     <!--swiper-->
     <div class="swiper-wraper">
       <swiper :indicator-dots="true"
@@ -427,7 +410,7 @@ export default {
   position:absolute; 
   top:20px;bottom: 22px;  
   background: transparent; 
-  box-shadow: 0 6px 10px rgba(0,0,0,0.3);  
+  box-shadow: 0 6px 10px rgba(0,0,0,0.1);  
   z-index: -1; 
   background: #fff; 
 }

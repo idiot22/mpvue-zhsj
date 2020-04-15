@@ -5,14 +5,14 @@
               <li v-for="(item,index) in tabList" :key="index" @click="linkTo(index)">
                 <div class="tab-wraper">
                   <img  class='icon'
-                  :class="activeIndex == index ? 'icon-ani' : ''"
-                  :src="activeIndex == index ? item.selectedIconPath : item.iconPath" alt="">
-                  <p class="text" :class="activeIndex == index ? 'text-active' : ''">{{item.text}}</p>
+                  :class="tabIndex == index ? 'icon-ani' : ''"
+                  :src="tabIndex == index ? item.selectedIconPath : item.iconPath" alt="">
+                  <p class="text" :class="tabIndex == index ? 'text-active' : ''">{{item.text}}</p>
                 </div>
-                <div class="cicle-wraper" :class="activeIndex == index ? 'circle-ani' : ''">
+                <div class="cicle-wraper" :class="tabIndex == index ? 'circle-ani' : ''">
                   <img src="../../static/tabs/tabCirle.png" alt="">
                 </div>
-                <div :class="activeIndex == index ? 'bg-circle-ani' : ''" 
+                <div :class="tabIndex == index ? 'bg-circle-ani' : ''" 
                 class="bg-circle"></div>
               </li>
           </ul>
@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import {mapState, mapMutations} from 'vuex'
+import * as types from '../store/mutation-types'
 export default {
   props: ['text'],
   data () {
@@ -35,15 +37,15 @@ export default {
         },
         {
           text: '课程',
-          iconPath: '../../static/tabs/活动.png',
-          selectedIconPath: '../../static/tabs/活动-c.png',
-          pagePath: '../../pages/person/main'
+          iconPath: '../../static/tabs/course.png',
+          selectedIconPath: '../../static/tabs/course-c.png',
+          pagePath: '../../pages/plan/main'
         },
         {
-          text: '提交',
-          iconPath: '../../static/tabs/提交.png',
-          selectedIconPath: '../../static/tabs/提交-c.png',
-          pagePath: '../../pages/person/main'
+          text: '作品',
+          iconPath: '../../static/tabs/tijiao.png',
+          selectedIconPath: '../../static/tabs/tijiao-c.png',
+          pagePath: '../../pages/zuopin/main'
         },
         {
           text: '我的',
@@ -51,19 +53,19 @@ export default {
           selectedIconPath: '../../static/tabs/my-c.png',
           pagePath: '../../pages/person/main'
         }
-      ],
-      activeIndex: 0
+      ]
     }
   },
   onshow () {
   },
   computed: {
-
+    ...mapState(['tabIndex'])
   },
   methods: {
+    ...mapMutations({setTabIndex: types.SET_TABINDEX}),
     linkTo (index) {
-      this.activeIndex = index
-      console.log(this.tabList[index].pagePath)
+      this.setTabIndex(index)
+      this.activeIndex = this.tabIndex
       wx.switchTab({
         url: this.tabList[index].pagePath
       })

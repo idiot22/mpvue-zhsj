@@ -57,10 +57,28 @@ export default {
   methods: {
     submit () {
       let that = this
+      if (this.postTitle === '') {
+        wx.showToast({
+          title: '作品标题未填写',
+          icon: 'none'})
+        return
+      }
+      if (this.postContent === '') {
+        wx.showToast({
+          title: '作品内容未填写',
+          icon: 'none'})
+        return
+      }
+      if (!this.uploadList) {
+        wx.showToast({
+          title: '图片未上传',
+          icon: 'none'})
+        return
+      }
       mpvue.uploadFile({
         url: 'https://zhsj.bnuz.edu.cn/ComprehensiveSys/student/postProduct', // 仅为示例，非真实的接口地址
         filePath: that.uploadList[0],
-        name: 'file',
+        name: 'postFile',
         formData: {
           classId: that.classId,
           postTitle: that.postTitle,
@@ -69,22 +87,18 @@ export default {
           topicId: that.topicId
         },
         success (res) {
-          console.log(res, 'fdfd')
+          wx.showToast({
+            title: '上传成功',
+            icon: 'none',
+            success: function () {
+              setTimeout(() => {
+                that.$router.push({path: '../zuopin/main', isTab: true})
+              }, 2000)
+            }
+          })
         },
         fail (res) {
           console.log(res)
-        }
-      })
-      mpvue.uploadFile({
-        url: 'https://zhsj.bnuz.edu.cn/ComprehensiveSys/student/postProduct', // 仅为示例，非真实的接口地址
-        filePath: this.uploadList,
-        name: 'file',
-        formData: {
-          classId: this.classId,
-          postTitle: this.postTitle,
-          postContent: this.postContent,
-          postType: this.postType,
-          topicId: this.topicId
         }
       })
     },
@@ -110,6 +124,11 @@ export default {
 
   },
   onLoad () {
+    this.postType = this.$route.query.type
+    this.courseList = []
+    this.postTitle = ''
+    this.postContent = ''
+    this.uploadList = null
     api.getMyCourse({keyword: ''}).then((res) => {
       let arr = res.data.data
       this.classId = arr[0].classId
@@ -127,12 +146,14 @@ export default {
 <style lang='scss' scoped>
 @import '../../common/styles/mixin.scss';
 .tijiao{
+  
   padding:5%;
   padding-top:10%
 }
 .wraper{
+  background: white;
   width: 100%;
-  box-shadow: 0px 0px 8px rgba(0,0,0,0.3);
+  box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
   border-radius: 10px;
   overflow: hidden;
   margin-bottom: 20px;
@@ -222,7 +243,7 @@ export default {
     background: rgba(0,0,0,0) !important;
   }
   .van-popup--safe{
-    box-shadow: 0px 2px 8px rgba(0,0,0,0.3);
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.1);
   }
   .van-dropdown-menu__item{
     justify-content: flex-start;

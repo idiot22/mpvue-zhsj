@@ -38,8 +38,11 @@ export let courseImg = [
 
 export let postType = {
   form_post_works: '作品',
-  form_post_application: '作品应用'
+  form_post_application: '作品应用',
+  form_post_other: '其他'
 }
+export let postTypeList = ['form_post_works', 'form_post_application', 'form_post_other']
+
 export let courseTypeDui = {
   form_post_yanxue: '研学',
   form_post_shijian: '实践',

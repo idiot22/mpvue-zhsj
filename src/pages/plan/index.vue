@@ -5,7 +5,7 @@
       <div class="title">
         <div class="data">{{today}}</div>
         <div class="tiqi">{{todate}}<br>{{toweek}}</div>
-        <img src="/static/images/zuopin/course.png" alt="" srcset="">
+        <img src="/static/images/zuopin/course.png" alt="" srcset="" @click="$router.push('../schedule/main')">
       </div>
       <div class="datalist">
         <div class="weeks">
@@ -48,6 +48,8 @@
         </div>
       </div>
     </div>
+
+    <vue-tab-bar></vue-tab-bar>
   </div>
 </template>
 
@@ -55,10 +57,12 @@
 import api from '../../api/index'
 import {formatDate, getWeek} from '../../utils/index'
 import timeShow from '../../components/info-list/time'
+import vueTabBar from '@/components/vueTabBar.vue'
 export default {
-  components: {timeShow},
+  components: {timeShow, vueTabBar},
   data () {
     return {
+
       activeIndex: 0,
       todate: '',
       toweek: '',
@@ -88,7 +92,9 @@ export default {
         newVal[i].courseEndTime = newVal[i].courseEndTime.slice(0, 5)
         if (i === 0 || newVal[i].courseDate === newVal[i - 1].courseDate) {
           daySchedule.push(newVal[i])
-          continue
+          if (i < newVal.length - 1) {
+            continue
+          }
         }
         daylist.push(daySchedule)
         daySchedule = []
@@ -117,8 +123,9 @@ export default {
       })
     },
     changeClass (index) {
+      let oriIndex = new Date().getDay() - 1
       this.activeIndex = index
-      this.startDate = this.endDate = formatDate(new Date((new Date() / 1000 + 86400 * index) * 1000))
+      this.startDate = this.endDate = formatDate(new Date((new Date() / 1000 + 86400 * (index - oriIndex)) * 1000))
       api.getSchedule({
         startDate: this.startDate,
         endDate: this.endDate
@@ -134,8 +141,17 @@ export default {
     this.toweek = getWeek(new Date().getDay())
     this.todate = formatDate(new Date()).slice(0, 7)
     this.today = new Date().getDate()
-    for (var i = 0; i < 7; i++) {
-      let date = formatDate(new Date((new Date() / 1000 + 86400 * i) * 1000))
+    let week = new Date().getDay()
+    this.activeIndex = week - 1
+    // 获取今日日期之前的日期
+    for (var i = 0; i < week; i++) {
+      let date = formatDate(new Date((new Date() / 1000 - 86400 * i) * 1000))
+      this.dates.push(date.slice(8, 10))
+    }
+    // 获取今日日期之后的日期
+    this.dates.reverse()
+    for (var j = week - 2; j < 6; j++) {
+      let date = formatDate(new Date((new Date() / 1000 + 86400 * j) * 1000))
       this.dates.push(date.slice(8, 10))
     }
     api.getSchedule({
@@ -143,6 +159,7 @@ export default {
       endDate: this.endDate
     }).then((res) => {
       this.courseList = res.data.data
+      this.daylist = [this.courseList]
     })
   }
 }

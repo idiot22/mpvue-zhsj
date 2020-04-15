@@ -16,20 +16,20 @@
       </van-tabs>
       <div class="zuopin-card" 
         v-for='(item,index) in zuopinList'
-        :key='index'>
+        :key='index'
+        @click="showLevel(index)">
         <div class="left">
           <div class="title">
             <div class="mark"></div>
             <span>{{item.postTitle}}</span>
-            <div class="line"></div>
           </div>
           <div class="badge">
-            <van-tag type="primary" plain color='#FF9933'>{{postType[item.postType]}}</van-tag>
+            <van-tag type="primary" plain round color='#FF9933'>{{postType[item.postType]}}</van-tag>
             &nbsp;
-            <van-tag type="primary" plain color='#FF9933' v-if="courseTypeDui[item.topicId]">{{courseTypeDui[item.topicId]}}</van-tag>
+            <van-tag type="primary" plain round color='#FF9933' v-if="courseTypeDui[item.topicId]">{{courseTypeDui[item.topicId]}}</van-tag>
           </div>
           <div class="info">{{item.postContent}}</div>
-          <img src="/static/images/zuopin/mark.png" alt="" srcset="">
+          <div class="date">{{item.buildTime}}</div>
         </div>
         <div class="right">
           <van-image
@@ -44,23 +44,35 @@
     </div>
     
         <div class="popbtn">
-          <div class="img-style" :animation="animCollect" @click="collect">作品</div>
-          <div class="img-style" :animation="animTranspond" @click="transpond">应用</div>
-          <div  class="img-style" :animation="animInput" @click="input">其他</div>
+          <div class="img-style" :animation="animCollect" @click="totijiao(postTypeList[0])">作品</div>
+          <div class="img-style" :animation="animTranspond" @click="totijiao(postTypeList[1])">应用</div>
+          <div  class="img-style" :animation="animInput" @click="totijiao(postTypeList[2])">其他</div>
           <div  class="img-plus-style" :animation="animPlus" @click="plus">
             <img src="/static/images/zuopin/add.png" alt="" srcset="">
           </div>
         </div>
+
+        <!--弹出等级-->
+        <van-dialog id="van-dialog" />
+    <vue-tab-bar></vue-tab-bar>
   </div>
 </template>
 
 <script>
 import {baseUrl} from '../../utils/const'
 import api from '../../api/index'
-import {courseTypeDui, postType} from '../../utils/data'
+import {courseTypeDui, postType, postTypeList} from '../../utils/data'
+import vueTabBar from '@/components/vueTabBar.vue'
+import Dialog from '../../../static/vant2/dialog/dialog'
 export default{
+  components: {
+    vueTabBar, Dialog
+  },
   data () {
     return {
+      showDetail: false,
+      clickIndex: 0,
+      postTypeList: postTypeList,
       activeTab: 0,
       classData: [],
       zuopinList: [],
@@ -87,6 +99,10 @@ export default{
     }
   },
   methods: {
+    totijiao (type) {
+      this.$router.push({path: '../tijiao/main', query: {type: type}})
+      this.plus()
+    },
     changeTab (data) {
       this.activeTab = data.target.index
       this.getWorkData()
@@ -97,6 +113,8 @@ export default{
         return api.getWorkWall({classId: this.classData[this.activeTab].classId})
       }).then((res) => {
         this.zuopinList = res.data.data
+      }).catch((err) => {
+        console.log(err)
       })
     },
 
@@ -179,6 +197,16 @@ export default{
       this.animCollect = animationcollect.export()
       this.animTranspond = animationTranspond.export()
       this.animInput = animationInput.export()
+    },
+    showLevel (index) {
+      let commentContent = this.zuopinList[index].commentContent ? this.zuopinList[index].commentContent : '未评价'
+      let level = this.zuopinList[index].commentLevel ? this.zuopinList[index].commentLevel : '暂无等级'
+      console.log(commentContent)
+      Dialog.alert({
+        title: '作品评价',
+        message: '老师评价：' + commentContent + '  ' + '等级：' + level,
+        confirmButtonColor: '#00c5bc'
+      })
     }
   }
 }
@@ -233,11 +261,13 @@ export default{
   border-radius: 100rpx 100rpx 0rpx 0rpx;
   overflow: hidden;
   min-height: 300px;
+  
 }
 
 //card
 .zuopin-card{
   padding: 10px;
+  margin-top: 20px;
   margin-bottom: 20px;
   width: 100%;
   background: white;
@@ -248,7 +278,7 @@ export default{
   align-items: center;
   box-shadow: 1px 2px 8px rgba(0,0,0,0.1);
   .left{
-    flex-grow: 0;
+    flex-grow: 1;
     flex:2;
     padding-right: 10px;
     .title{
@@ -256,14 +286,14 @@ export default{
       .mark{
         position: absolute;
         left:-10px;
-        width:10px;
+        width:5px;
         height: 28px;
-        background: #00c5bbc9;
+        background: #1edcb4;
       }
       .line{
         width:50px;
         height: 1px;
-        background: #00c5bbb0;
+        background: #80ecd5;
         margin-left:30px;
         margin-top: 5px;
       }
@@ -283,6 +313,11 @@ export default{
       font-size: $text-small;
       color:$color-small
     }
+    .date{
+      padding-left: 30px;
+      font-size: $text-tiny;
+      color:$color-shallow
+    }
     img{
       width:35px;
       height: 10px;
@@ -290,6 +325,7 @@ export default{
     }
   }
   .right{
+    flex-grow: 1;
     flex: 1;
   }
 }
@@ -310,7 +346,7 @@ export default{
   color:white;
   line-height: 100rpx;
   font-weight: 800;
-  background: #1edcb391;
+  background: #1edcb4;
   box-shadow: 0px 0px 8px rgba(0,0,0,0.2);
   box-sizing: border-box;
   padding: 10px;
@@ -332,13 +368,13 @@ export default{
   opacity: 0;
   color:white;
   line-height: 100rpx;
-  background: #1edcb38a;
+  background: #1edcb4;
   border-radius: 50rpx;
   font-weight: 800;
   box-shadow: 0px 0px 8px rgba(0,0,0,0.2)
 }
 .img-style:hover{
-  background: #42ffd68a;
+  background: #51d8bb;
 }
 }
 </style>

@@ -1,24 +1,25 @@
 {
   "pages": [
+    "pages/index/main",
     "pages/report/main",
+    "pages/info-list/main",
+    "pages/course-list/main",
+    "pages/login/main",
+    "pages/person/main",
+    "pages/plan/main",
+    "pages/radar/main",
+    "pages/order/main",
+    "pages/works-wall/main",
+    "pages/zuopin/main",
+    "pages/tijiao/main",
     "pages/active-list/main",
+    
+   
     "pages/group/main",
     "pages/addGroup/main",
-    "pages/activeInfo/main",
-    "pages/course-list/main",
-    "pages/index/main",
     "pages/courseInfo/main",
-    "pages/plan/main",
-    "pages/tijiao/main",
-    "pages/zuopin/main",
-    "pages/works-wall/main",
-    "pages/order/main",
-    "pages/radar/main",
-    "pages/login/main",
-    "pages/info-list/main",
     "pages/logs/main",
     "pages/counter/main",
-    "pages/person/main",
     "pages/overallCommend/main",
     "pages/schedule/main"
   ],
@@ -38,11 +39,11 @@
       "pagePath": "pages/index/main"
     },{
       "text": "",
-      "pagePath": "pages/logs/main"
+      "pagePath": "pages/plan/main"
     },
     {
       "text": "",
-      "pagePath": "pages/logs/main"
+      "pagePath": "pages/zuopin/main"
     }, {
       "text": "",
       "pagePath": "pages/person/main"
@@ -53,11 +54,11 @@
       "pagePath": "pages/index/main"
     },{
       "text": "",
-      "pagePath": "pages/logs/main"
+      "pagePath": "pages/plan/main"
     },
     {
       "text": "",
-      "pagePath": "pages/logs/main"
+      "pagePath": "pages/zuopin/main"
     }, {
       "text": "",
       "pagePath": "pages/person/main"
@@ -80,5 +81,7 @@
     "van-collapse": "../static/vant2/collapse/index",
     "van-collapse-item": "../static/vant2/collapse-item/index",
     "van-submit-bar": "../static/vant2/submit-bar/index",
-    "van-field":"../static/vant2/field/index"}
+    "van-field":"../static/vant2/field/index",
+    "van-rate": "../static/vant2/rate/index",
+    "van-divider": "../static/vant2/divider/index"}
 }
