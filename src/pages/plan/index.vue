@@ -16,7 +16,7 @@
         </div>
       </div>
     </div>
-    <div class="content">
+    <div class="content" :animation="animPop">
       <div class="riqi-select">
           <picker mode="date" :value="startDate" @change="bindDateChange1">
             <div class="picker">
@@ -62,7 +62,7 @@ export default {
   components: {timeShow, vueTabBar},
   data () {
     return {
-
+      animPop: {},
       activeIndex: 0,
       todate: '',
       toweek: '',
@@ -104,6 +104,17 @@ export default {
     }
   },
   methods: {
+    popStart () {
+      var animationPlus = wx.createAnimation({
+        duration: 300,
+        timingFunction: 'ease-out'
+      })
+      animationPlus.translateY(30).step()
+      animationPlus.translateY(-10).step()
+      animationPlus.translateY(10).step()
+      animationPlus.translateY(0).step()
+      this.animPop = animationPlus.export()
+    },
     bindDateChange1 (e) {
       this.startDate = e.mp.detail.value
       api.getSchedule({
@@ -136,6 +147,7 @@ export default {
 
   },
   onLoad () {
+    this.popStart()
     // 初始化日期数据
     this.startDate = this.endDate = formatDate(new Date())
     this.toweek = getWeek(new Date().getDay())

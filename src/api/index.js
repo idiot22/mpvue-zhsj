@@ -126,6 +126,10 @@ function getUserInfo (params) {
 function getFriendList (params) {
   return get('/student/getAllStudent', params)
 }
+function addFriend (params) {
+  let options = {headers: {'content-type': 'application/x-www-form-urlencoded'}}
+  return post('/student/addFriend', params, options)
+}
 export default {
   getProvince,
   getCity,
@@ -155,5 +159,6 @@ export default {
   getMyDeclare,
   postZuopin,
   getUserInfo,
-  getFriendList
+  getFriendList,
+  addFriend
 }

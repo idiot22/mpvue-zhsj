@@ -10,7 +10,7 @@
         快来看看作品的得分吧！是不是拿到了一个好成绩呢？
       </div>
     </div>
-    <div class="content">
+    <div class="content" :animation="animPop">
       <van-tabs :active="activeTab" :ellipsis='false' @change="changeTab">
         <van-tab :title="item.className"  v-for='(item,index) in classData' :key='index' ></van-tab>
       </van-tabs>
@@ -70,6 +70,7 @@ export default{
   },
   data () {
     return {
+      animPop: {},
       showDetail: false,
       clickIndex: 0,
       postTypeList: postTypeList,
@@ -88,6 +89,7 @@ export default{
   },
   onLoad () {
     this.getWorkData()
+    this.popStart()
   },
 
   onShareAppMessage () {
@@ -117,7 +119,17 @@ export default{
         console.log(err)
       })
     },
-
+    popStart () {
+      var animationPlus = wx.createAnimation({
+        duration: 300,
+        timingFunction: 'ease-out'
+      })
+      animationPlus.translateY(30).step()
+      animationPlus.translateY(-10).step()
+      animationPlus.translateY(10).step()
+      animationPlus.translateY(0).step()
+      this.animPop = animationPlus.export()
+    },
     // 点击弹出
     plus () {
       if (this.isPopping) {

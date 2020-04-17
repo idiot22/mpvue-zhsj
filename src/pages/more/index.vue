@@ -50,7 +50,7 @@ export default {
       {
         name: '我的小队',
         enl: 'GROUP',
-        to: '',
+        to: '../group/main',
         icon: 'circle',
         color: '#e399bc',
         color2: '#e399bb71'

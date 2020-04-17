@@ -1,1 +1,6 @@
-{}
+{
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#0fd1b8",
+    "navigationBarTitleText": "评价",
+    "navigationBarTextStyle": "white"
+}

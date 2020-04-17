@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/addFriend/main",
     "pages/index/main",
+    "pages/addFriend/main",
     "pages/more/main",
     "pages/person/main",
     "pages/editPerson/main",
