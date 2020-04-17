@@ -5,27 +5,30 @@
       <div class="avatar">
           <avatar :src="''" :scale='0.62' ></avatar>
       </div>
-      <span class="name" :class="showTop ?  'ani-name' : ''">姚佳苗</span>
+      <span class="name" :class="showTop ?  'ani-name' : ''">{{userInfo.studentName}}</span>
     </div>
     <div class="person-info-wraper" :style="{top:personTop+'px',opacity:scrollY <= 0 ? 0 : ''}">
       <div class="avatar-wraper">
         <avatar :src="''" :scale='avatarScale'></avatar>
         <div class="person-info">
           <div class="name-wraper">
-            <span class="name" :style="showTop ? 'opacity:0' : ''">姚佳苗</span>
-            <i class="iconfont icon-bianji"></i>
+            <span class="name" :style="showTop ? 'opacity:0' : ''">{{userInfo.studentName}}</span>
+            <i class="iconfont icon-bianji" @click="switchTo"></i>
           </div>
           <div class="info">
-              年级：一年级&nbsp;&nbsp;学号：1601033343
+              年级：{{userInfo.gradeId+'年级'}}
           </div>
           <div class="num-wraper">
-            <p>积分<span class="num">10</span></p>
-            <p>获赞<span class="num">10</span></p>
+            <p>积分<span class="num">&nbsp;{{userInfo.integral}}</span></p>
+            <p>获赞<span class="num">&nbsp;{{userInfo.thumbUpNum}}</span></p>
           </div>
         </div>
       </div>
       <hr class="line">
       <buddle-tab-bar :tabBig='tabFixed'></buddle-tab-bar>
+      <div class="tabShow">
+        <empty></empty>
+      </div>
     </div>
     <div class="scroll">
       <scroll-view class='scroll' scroll-y="true" style="height: 430px;" @scroll='scroll'>
@@ -34,20 +37,23 @@
                 <avatar :src="''"></avatar>
                 <div class="person-info">
                   <div class="name-wraper">
-                    <span class="name">姚佳苗</span>
-                    <i class="iconfont icon-bianji"></i>
+                    <span class="name">{{userInfo.studentName}}</span>
+                    <i class="iconfont icon-bianji" @click="switchTo"></i>
                   </div>
                   <div class="info">
-                      年级：一年级&nbsp;&nbsp;学号：1601033343
+                      年级：{{userInfo.gradeId+'年级'}}
                   </div>
                   <div class="num-wraper">
-                    <p>积分<span class="num">10</span></p>
-                    <p>获赞<span class="num">10</span></p>
+                    <p>积分<span class="num">&nbsp;{{userInfo.integral}}</span></p>
+                    <p>获赞<span class="num">&nbsp;{{userInfo.thumbUpNum}}</span></p>
                   </div>
                 </div>
               </div>
               <hr class="line">
               <buddle-tab-bar>99899</buddle-tab-bar>
+              <div class="tabShow">
+                <empty></empty>
+              </div>
             </div>
       </scroll-view>
     </div>
@@ -60,11 +66,14 @@ import vueTabBar from '@/components/vueTabBar.vue'
 import Avatar from '@/components/avatar.vue'
 import BuddleTabBar from '@/components/buddleTabBar.vue'
 import { showJson } from '../../utils/util'
+import api from '../../api/index'
+import empty from '../../components/empty'
 export default {
   components: {
     vueTabBar,
     Avatar,
-    BuddleTabBar
+    BuddleTabBar,
+    empty
   },
   created () {
     this.bgImgHeight = 170 // 这是个人中心的背景图高，用于计算下面个人滑片的位置
@@ -76,10 +85,14 @@ export default {
       avatarScale: 1,
       showTop: false,
       tabFixed: false,
-      bgScale: 1
+      bgScale: 1,
+      userInfo: {}
     }
   },
   methods: {
+    switchTo () {
+      this.$router.push({path: '../editPerson/main'})
+    },
     scroll (e) {
       this.scrollY = e.mp.detail.scrollTop
       let top = this.bgImgHeight - this.scrollY
@@ -96,7 +109,6 @@ export default {
       return this.bgImgHeight / (this.bgImgHeight + this.scrollY)
     },
     topBarStyle () {
-      console.log(Number(this.avatarScale) <= 0.58)
       if (Number(this.avatarScale) <= 0.53) {
         this.showTop = true
         return showJson({
@@ -114,6 +126,12 @@ export default {
     scrollY (newVal) {
       this.avatarScale = this.bgImgHeight / (this.bgImgHeight + newVal)
     }
+  },
+  onLoad () {
+    api.getUserInfo().then((res) => {
+      this.userInfo = res.data
+      console.log(this.userInfo)
+    })
   }
 }
 </script>
@@ -125,7 +143,7 @@ export default {
     .person-bgimg{
       width: 100%;
       height: 180px;
-      background: red;
+      background: $color-line;
       background-size:100% 100%; 
     }
     .scroll{

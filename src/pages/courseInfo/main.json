@@ -4,6 +4,5 @@
         "van-tabs": "/static/vant2/tabs/index",
         "van-icon": "/static/vant2/icon/index"
     },
-    "backgroundColor":"#fbf9fe",
     "navigationBarBackgroundColor": "#999"
 }

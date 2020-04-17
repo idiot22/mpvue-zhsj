@@ -2,6 +2,7 @@
     <div class="title-bar">
       <div class="tag"></div>
       <span>{{text}}</span>
+      <span class='more' @click="swithchTo()">查看更多<van-icon name="arrow" /></span>
     </div>
 </template>
 
@@ -11,9 +12,18 @@ export default {
     text: {
       type: String,
       defaute: ''
+    },
+    nav: {
+      type: String,
+      defaute: ''
+    }
+  },
+  methods: {
+    swithchTo () {
+      console.log('ddsfdsf')
+      this.$router.push({path: `../${this.nav}/main`})
     }
   }
-
 }
 </script>
 
@@ -22,20 +32,29 @@ export default {
   .title-bar{
     position: relative;
     display: flex;
-    padding: 10px 0px;
+    padding: 10px 5%;
+    padding-top: 20px;
     align-items: center;
     .tag{
-      width: 30px;
-      height: 10px;
+      width: 5px;
+      height: 20px;
       background: #00c5bc;
       border-radius: 2.5px;
-      left: -25px;
       position: absolute;
     }
     span{
-      padding-left: 25px ;
+      padding-left: 20px ;
       font-size:$text-big;
-      font-weight:400
+      font-weight:500
+    }
+    .more{
+      position: absolute;
+      right:5%;
+      font-size:$text-small;
+      color:$color-shallow;
+      line-height: 30px;
+      display: flex;
+      align-items: center;
     }
   }
 </style>

@@ -11,5 +11,6 @@
     "van-swipe-cell": "/static/vant2/swipe-cell/index",
     "van-cell-group": "/static/vant2/cell-group/index",
     "van-dialog": "/static/vant2/dialog/index"
-  }
+  },
+  "navigationStyle": "custom"
 }

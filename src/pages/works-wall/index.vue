@@ -58,6 +58,7 @@
           </div>
         </div>
       </div>
+     
     </div>
   </div>
 </template>
@@ -67,7 +68,9 @@ import api from '../../api/index'
 import {postType} from '../../utils/data'
 import {baseUrl} from '../../utils/const'
 import { getTimeDiff } from '../../utils/index'
+
 export default{
+
   data () {
     return {
       activeTab: 0,
@@ -123,12 +126,12 @@ export default{
     right: -140rpx;
     width: 400rpx;
     height: 400rpx;
-    transform: rotate(-30deg);
+    transform: rotate(-30deg) scale(0.7);
     top: -40rpx;
   }
   .title{
     font-size: 40rpx;
-    padding: 70rpx;
+    padding: 30rpx;
     padding-bottom: 40rpx;
     color: white;
     font-weight: 900;
@@ -152,7 +155,7 @@ export default{
   width:100%;
   background: white;
   position: relative;
-  top: -220rpx;
+  top: -300rpx;
   padding: 20px;
   padding-top: 0px;
   box-sizing: border-box;

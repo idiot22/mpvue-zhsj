@@ -120,6 +120,9 @@ function postZuopin (params) {
   let options = {headers: {'content-type': 'multipart/form-data'}}
   return post('/student/postProduct', params, options)
 }
+function getUserInfo (params) {
+  return get('/student/getStudentInfo')
+}
 export default {
   getProvince,
   getCity,
@@ -147,5 +150,6 @@ export default {
   initCurrencyType,
   report,
   getMyDeclare,
-  postZuopin
+  postZuopin,
+  getUserInfo
 }

@@ -1,11 +1,14 @@
 {
   "pages": [
+    "pages/addFriend/main",
     "pages/index/main",
+    "pages/more/main",
+    "pages/person/main",
+    "pages/editPerson/main",
     "pages/report/main",
     "pages/info-list/main",
     "pages/course-list/main",
     "pages/login/main",
-    "pages/person/main",
     "pages/plan/main",
     "pages/radar/main",
     "pages/order/main",
@@ -13,8 +16,6 @@
     "pages/zuopin/main",
     "pages/tijiao/main",
     "pages/active-list/main",
-    
-   
     "pages/group/main",
     "pages/addGroup/main",
     "pages/courseInfo/main",

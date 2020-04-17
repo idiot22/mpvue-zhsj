@@ -20,9 +20,9 @@ export default {
     tabData: {
       type: Array,
       default: [
-        {name: '课程', num: 10},
-        {name: '活动', num: 10},
-        {name: '作业', num: 10}
+        {name: '好友', num: 0},
+        {name: '队伍', num: 10},
+        {name: '订单', num: 10}
       ]
     },
     tabBig: false

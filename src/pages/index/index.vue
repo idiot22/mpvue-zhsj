@@ -1,18 +1,16 @@
 <template>
   <div class="index">
     <!--swiper-->
-    <div class="swiper-wraper">
-      <swiper :indicator-dots="true"
+    <div class="swiper-wraper" :class="'bg'+curIndex">
+      <swiper :indicator-dots="false"
         :autoplay="true"
         :circular="true"
         @change="handleChange($event)"
-        previous-margin='50px'
-        next-margin='50px'>
+        previous-margin='40px'
+        next-margin='40px'>
         <block v-for="(item, index) in bannerUrl" :key="index">
           <swiper-item class="img-item">
             <img :src="item" alt="" class="banner" :animation="index == curIndex ? animationBanner1 : animationBanner2">
-            <div class="shadow-left" :style="{opacity:index == curIndex ? 1 : 0}"></div>
-            <div class="shadow-right" :style="{opacity:index == curIndex ? 1 : 0}"></div>
           </swiper-item>
         </block>
       </swiper>
@@ -24,130 +22,85 @@
         <div class="col" v-for='(item, index) in tabImgUrl' :key='index'>
           <navigator :url='item.pathTo'>
             <img :src="item.imgUrl" alt="">
-            <p>{{item.text}}</p>
           </navigator>
+          <p>{{item.text}}</p>
         </div>
       </div>
     </div>
     <!--/tab-->
     <!--myCourse-->
     <div class="my-course">
-      <title-bar :text="'今日课程'"></title-bar>
+      <title-bar :text="'课程报名'" :nav="'course-list'"></title-bar>
       <div class="content-wraper">
-        <scroll-view scroll-x >
-          <div class='content'>
-            <show-image-card
-            v-for='(item,index) in mycourse' :key='index'
-            :imgUrl='item.imgUrl' 
-            :title="item.course" 
-            :time="item.day+' '+item.time"
-            :status='item.flag'>
-            </show-image-card>
-            <div class="marginleft">
-             <card-show-more :url="'../../pages/list/main'"></card-show-more>
+        <div class="course-wraper" v-for='(item,index) in courseList' :key="index" @click="showInfo(index)">
+          <div class="left">
+            <van-image
+              width="100"
+              height="100"
+              fit="fill"
+              lazy-load
+              :src="baseUrl+'/'+item.courseImgUrl"
+            />
+          </div>
+          <div class="right">
+            <div class="title">{{item.className}}</div>
+            <div class="tag">
+              <van-tag type="success" round plain color='#00c5bc' v-if="courseType[item.courseType]">{{courseType[item.courseType]}}</van-tag>&nbsp;
+              <van-tag type="success" round plain color='#00c5bc' v-if="interestType[item.courseType]">{{interestType[item.courseType]}}</van-tag>
+            </div>
+            <div class="time">{{item.payStartTime}}~{{item.payEndTime}}</div>
+            <div class="info">
+              <span class="money">￥{{item.coursePrice}}</span>
+              <span class="yuliang">x{{item.remain}}</span>
             </div>
           </div>
-        </scroll-view>
+        </div>
+        <van-button plain round  size="large" @click="changeOther('course')">换一批</van-button>
       </div>
+      
     </div>
     <!--myCourse-->
     <!--enrollCourse-->
     <div class="enroll-course">
-      <title-bar :text="'报名课程'"></title-bar>
-      <van-card
-        class="course-card"
-        :num="'剩余'+item.remain"
-        :price="item.coursePrice"
-        :title="item.courseName"
-        title-class='title-class'
-        :thumb="courseImgPath[index]"
-        v-for="(item,index) in  kcbaoming"
-        :key="index"
-        >
-        <div slot="desc">
-          <van-tag  round  color="#f2826a" class='desc-tag'>{{courseType[item.courseType]}}</van-tag>
-          <p class="data">{{item.payEndTime}} ~ {{item.payStartTime}}</p>
-        </div>
-      </van-card>
-      <div class="btn-wraper">
-        <van-button style='margin:0 auto;border-radius:20px;border:2rpx #a29b9b；font-family:Source Han Serif SCS'>查看更多课程</van-button>
-      </div>
-    </div>
-    <!--/enrollCourse-->
-
-    <!--myActivity-->
-    <div class="my-course">
-      <title-bar :text="'我的活动'"></title-bar>
-      <div class="content-wraper">
-        <scroll-view scroll-x class='content'>
-          <div class='content'>
-            <show-image-card
-            v-for='(item,index) in myactivity' :key='index'
-            :imgUrl='item.imgUrl' 
-            :title="item.course" 
-            :time="item.day+' '+item.time"
-            :status='item.flag'>
-            </show-image-card>
-            <div class="marginleft">
-             <card-show-more></card-show-more>
+      <title-bar :text="'活动报名'" :nav="'active-list'"></title-bar>
+      <div class="enroll-wraper">
+      <div 
+          class="course-wraper" v-for='(item,index) in activeList' 
+          :key="index" 
+          @click="showInfo(index)">
+          <div class="left">
+            <van-image
+              width="100"
+              height="100"
+              fit="fill"
+              lazy-load
+              :src="baseUrl+'/'+item.imageUrl"
+            />
+          </div>
+          <div class="right">
+            <div class="title">{{item.activityName}}</div>
+            <div class="time">
+              <van-icon name="clock-o" />&nbsp;{{item.activityStartTime+'~'+item.activityEndTime}}
+              <br>
+            </div>
+            <div class="locale">
+              <span class="place">
+                <van-icon name="location-o" color="#FF9933"/>&nbsp;{{item.activityAddress}}
+              </span>&nbsp;
+              <span class="renshu">
+                <van-icon name="friends-o"  size="15" color="#00c5bc"/>&nbsp;{{item.maxCount}}
+              </span>
+            </div>
+            <div class="info">
+              {{item.activityDescription}}
             </div>
           </div>
-        </scroll-view>
-      </div>
-    </div>
-    <!--myActivity-->
-
-    <!--enrollActivity-->
-    <div class="enroll-course">
-      <title-bar :text="'报名活动'"></title-bar>
-      <van-card
-        class="card"
-        num="最新活动"
-        :price="item.coursePrice"
-        :title="item.className"
-        title-class='title-class'
-        
-        :origin-price="'4000'"
-        v-for="(item,index) in  kcbaoming"
-        :key="index"
-        >
-        <div slot="desc">
-          <van-tag plain class='desc-tag'>{{courseType[item.courseType]}}</van-tag>
         </div>
-      </van-card>
-      <div class="btn-wraper">
-        <van-button style='margin:0 auto;border-radius:20px;border:2rpx #a29b9b;font-family:Source Han Serif SCS'>查看更多课程</van-button>
+        <van-button plain round text='#00c5bc' size="large" @click="changeOther('activy')">换一批</van-button>
       </div>
+    
     </div>
-    <!--enrollActivity-->
-
-    <!--inform-->
-    <div class="inform-wraper">
-      <van-panel title="最新通知"  status="最近一周">
-        <view>
-          <van-swipe-cell id="swipe-cell" 
-                :right-width="65" 
-                :left-width="0" 
-                async-close 
-                @close="onClose"
-                v-for="(item,index) in inform" :key='index'>
-            <van-cell-group>
-              <van-cell  :value="item.isread">
-                <view slot="title" class="title">
-                  <span class="iconfont icon-dian"></span>
-                  <view class="van-cell-text">
-                    <p>{{item.title}}</p>
-                    <p class="info-desc">{{item.label}}</p>
-                  </view>
-                </view>
-              </van-cell>
-            </van-cell-group>
-            <view slot="right">删除</view>
-          </van-swipe-cell>
-        </view>
-      </van-panel>
-    </div>
-    <!--/inform-->
+    <!--/enrollCourse-->
     <vue-tab-bar></vue-tab-bar>
   </div>
 </template>
@@ -162,6 +115,7 @@ import { getSetting, getUserInfo, getUserOpenId } from '@/api/wechat.js'
 import Auth from '../../base/Auth'
 import api from '../../api/index'
 import {courseType, courseImg} from '../../utils/data'
+import { baseUrl } from '../../utils/const'
 export default {
   components: {
     vueTabBar,
@@ -174,6 +128,7 @@ export default {
   },
   data () {
     return {
+      baseUrl: baseUrl,
       courseImgPath: courseImg,
       courseType: courseType,
       keyword: '',
@@ -189,112 +144,47 @@ export default {
       animationBanner1: {},
       curIndex: 0,
       tabImgUrl: tabImgUrl,
-      mycourse: [{
-        flag: '进行中',
-        imgUrl: 'http://localhost/zhsj/image/courses/课程.jpg',
-        course: 'David',
-        day: '2019-04-19',
-        time: '15:00'
-      },
-      {
-        flag: '一天后',
-        imgUrl: 'http://localhost/zhsj/image/courses/课程02.jpg',
-        course: 'Susan',
-        day: '2019-04-19',
-        time: '15:00'
-      },
-      {
-        flag: '六天后',
-        imgUrl: 'http://localhost/zhsj/image/courses/课程03.jpg',
-        course: 'Helen',
-        day: '2019-04-19',
-        time: '15:00'
-      },
-      {
-        flag: '一天后',
-        imgUrl: 'http://localhost/zhsj/image/courses/coding.png',
-        course: 'Mathew',
-        day: '2019-04-19',
-        time: '15:00'
-      }
-      ],
-      kcbaoming: [{
-        courseImg: 'http://localhost/zhsj/image/courses/cooker.jpg',
-        title: '小小美食家',
-        flag: '进行中',
-        day: '周六',
-        time: '15:00-17:00',
-        price: '3500'
-      },
-      {
-        courseImg: 'http://localhost/zhsj/image/courses/活动02.jpg',
-        title: '折纸课程',
-        flag: '一天后',
-        day: '周日',
-        time: '15:00-17:00',
-        price: '5500'
-      },
-      {
-        courseImg: 'http://localhost/zhsj/image/courses/活动03.jpg',
-        title: '航模制作',
-        flag: '六天后',
-        day: '周五',
-        time: '19:00-21:00',
-        price: '6000'
-
-      }
-      ],
-      inform: [{
-        title: '课程：您的少儿编程课已成功报名',
-        isread: '已读',
-        label: '上课时间：每周六 10：00-11：30',
-        border: true
-      },
-      {
-        title: '课程：您报名的少儿英语有作业需要提交',
-        isread: '未读',
-        label: '上课时间：每周六 10：00-11：30',
-        border: true
-      },
-      {
-        title: '活动：您报名的PCA马术夏令营地点变更',
-        isread: '已读',
-        label: '原计划于鄂尔多斯市举行的开营市改为包头市',
-        border: true
-      }
-      ],
-      myactivity: [{
-        flag: '进行中',
-        imgUrl: 'http://localhost/zhsj/image/courses/课程.jpg',
-        course: 'David',
-        day: '2019-04-19',
-        time: '15:00'
-      },
-      {
-        flag: '一天后',
-        imgUrl: 'http://localhost/zhsj/image/courses/课程02.jpg',
-        course: 'Susan',
-        day: '2019-04-19',
-        time: '15:00'
-      },
-      {
-        flag: '六天后',
-        imgUrl: 'http://localhost/zhsj/image/courses/课程03.jpg',
-        course: 'Helen',
-        day: '2019-04-19',
-        time: '15:00'
-      },
-      {
-        flag: '一天后',
-        imgUrl: 'http://localhost/zhsj/image/courses/coding.png',
-        course: 'Mathew',
-        day: '2019-04-19',
-        time: '15:00'
-      }
-      ]
+      courseList: [],
+      activeList: [],
+      courseListTotal: [],
+      activeListTotal: []
     }
   },
   methods: {
+    changeOther (flag) {
+      if (flag === 'course') {
+        let len = this.courseListTotal.length
+        let a = Math.floor(Math.random() * len)
+        if (a >= 3) {
+          a = a - 3
+        }
+        this.courseList = this.courseListTotal.slice(a, a + 3)
+      }
+      if (flag === 'activy') {
+        let len = this.activeListTotal.length
+        let a = Math.floor(Math.random() * len)
+        if (a >= 3) {
+          a = a - 3
+        }
+        this.activeList = this.activeListTotal.slice(a, a + 3)
+      }
+    },
+    search () {
+      api.getCourseList({
+        keyword: '',
+        minPrice: 0,
+        maxPrice: 9007199254740991
+      }).then((res) => {
+        this.courseListTotal = res.data.data
+        this.courseList = this.courseListTotal.slice(0, 3)
+      })
+      api.getAllActivities({
+        keyword: ''
+      }).then((res) => {
+        this.activeListTotal = res.data.data
+        this.activeList = this.activeListTotal.slice(0, 3)
+      })
+    },
     handleChange (e) {
       this.curIndex = e.mp.detail.current
       this.bannerSmallAni()
@@ -365,19 +255,28 @@ export default {
     // let app = getApp()
   },
   onLoad () {
-    api.getCourseList({
-      keyword: this.keyword,
-      minPrice: this.minPrice,
-      maxPrice: this.maxPrice
-    }).then((res) => {
-      this.kcbaoming = res.data.data
-    })
+    console.log(3443)
+    this.search()
   }
 }
 </script>
 
 <style lang='scss' scoped>
 @import '../../common/styles/mixin.scss';
+.bg0{
+  background: linear-gradient(rgb(42, 179, 156),rgb(63, 182, 178));
+}
+.bg1{
+  background: linear-gradient(#d99c9c,#e38aa9);
+}
+.bg2{
+  background: linear-gradient(#7eaae3,#5f8be6);
+}
+.swiper-wraper{
+  padding-top: 1rpx;
+  padding-top: 120rpx;
+  
+}
 .search-wraper{
   position: fixed;
   top:0px;
@@ -385,120 +284,144 @@ export default {
   width: 100%;
 }
 .index{
-  padding-top: 120rpx;
   padding-bottom: $bottom-pad 
 }
 .banner{
   position: relative;
   box-shadow: 0 0 10rpx rgba(0, 0, 0, 0.1);
   width: 100%;
-  height:90%;
+  height:100%;
 }
-.shadow-left {
-  left: 22px;  
-  right:12px; 
-  transform: skew(-12deg) rotate(-4deg); 
-  transition:all 0.7s ease
-}
-.shadow-right {
-  left: 12px;  
-  right:22px; 
-  transform: skew(12deg) rotate(4deg); 
-  transition:all 0.7s ease
-}
-.shadow-left, .shadow-right {
-  position:absolute; 
-  top:20px;bottom: 22px;  
-  background: transparent; 
-  box-shadow: 0 6px 10px rgba(0,0,0,0.1);  
-  z-index: -1; 
-  background: #fff; 
-}
+
 
 
 //tab
 .tab{
-  padding-bottom: 10px; 
+  width: 90%;
+  padding: 5px 0px;
+  margin: 0px 5%;
+  margin-top: 10px;
+  box-shadow: 0px 0px 8px rgba(0,0,0,0.1);
+  border-radius: 10px;
   img{
-    width:35px;
-    height: 30px;
+    width:40px;
+    height: 40px;
   }
   .row{
     display: flex;
     justify-content: space-around; 
-    padding:0px 20px; 
+    padding:0px 10px; 
     .col{
       width: 20%;
       text-align: center;
       p{
-        font-size: $text-small;
+        font-size: $text-tiny;
         color: $color-small 
       }
     }
   }
 }
-//mycourse
-.my-course{
-  width: 100%;
-  .content{
-    width: 100%;
-    .content-wraper{
-      display: flex;
-      white-space: nowrap;
-    }
-    .course-wraper{
-      width: 100px;
-      height: 135px;
-      background: red
-    }
-  }
-}
 .content-wraper{
-  padding-left: 25px; 
-  .content{
-    display: flex;
-    white-space: nowrap;
-    position: relative;
+ padding: 0px 5%;
+}
+
+.course-wraper{
+  display: flex;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  .left{
+    margin-right: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .right{
+    .title{
+      color:$main-txt;
+      font-size: $text-big;
+      font-weight: 300;
+    }
+    .time{
+      color:$color-shallow;
+      font-size: $text-small;
+      padding: 5px 0px;
+    }
+    .info{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .money{
+        color:$yellow-color;
+        font-size:$text-large;
+        font-weight: 800;
+      }
+      .yuliang{
+        color:$main-color;
+        font-size:$text-medium;
+        margin-right:0px        
+      }
+    }
   }
 }
-
-//enrollCourse
-.title-class{
-  font-size:$text-big
+.enroll-wraper{
+  padding: 0px 5%;
+.course-wraper{
+  display: flex;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  .left{
+    flex-shrink: 0;
+    margin-right: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .right{
+    flex-grow:0;
+    .title{
+      color:$main-txt;
+      font-size: $text-big;
+      font-weight: 300;
+      overflow: hidden;
+    }
+    .time{
+      color:$color-shallow;
+      font-size: $text-small;
+    }
+    .info{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color:$color-small;
+      font-size:$text-small;
+      margin-right:0px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      padding-top: 10px;
+    }
+    .locale{
+      display: flex;
+      align-items: center;
+      color:$color-shallow;
+      font-size: $text-small;
+      .place{
+        display: flex;
+        align-items: center;
+        color: $yellow-color;
+      }
+      .renshu{
+        display: flex;
+        color:$main-color;
+        align-items: center;
+      }      
+    }
+  }
 }
-.desc{
-  padding: 10px; 
-}
-.course-card{
-  background-color: white
-}
-.btn-wraper{
-  text-align: center;
-  margin-bottom:30px 
-}
-
-//inform
-.inform-wraper{
-  padding: 30px 0px;
-  background: $bg-color
-}
-.title{
-  display: flex
-}
-.info-desc{
-  color: #999;
-  font-size: $text-small;
-  margin-top: 3px;
-  line-height: 18px;
-}
-
-//附加
-.marginleft{
-  margin-left: 10px 
-}
-.data{
-  font-size: $text-small;
-  color: $color-small;
-  padding-top: 10rpx;
 }
 </style>

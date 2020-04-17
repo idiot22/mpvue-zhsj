@@ -78,12 +78,12 @@ export default{
     right: -140rpx;
     width: 400rpx;
     height: 400rpx;
-    transform: rotate(-30deg);
+    transform: rotate(-30deg) scale(0.7);
     top: -40rpx;
   }
   .title{
     font-size: 40rpx;
-    padding: 70rpx;
+    padding:30rpx;
     padding-bottom: 40rpx;
     color: white;
     font-weight: 900;
@@ -107,7 +107,7 @@ export default{
   width:100%;
   background: white;
   position: relative;
-  top: -220rpx;
+  top: -300rpx;
   padding: 20px;
   box-sizing: border-box;
   border-radius: 100rpx 100rpx 0rpx 0rpx;

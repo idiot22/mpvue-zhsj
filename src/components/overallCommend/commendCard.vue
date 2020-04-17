@@ -9,7 +9,7 @@
         </div>
         <div class="txt-wraper" v-for="(item, _index) in data.subtitle" :key='_index'>
             <div class="sub-title">
-                <img src="../../../static/images/overallcommend/wode.png">
+                <img src="../../../static/images/overallcommend/wode.jpg">
             <span>{{item.txt}}</span>
             </div>
             <div class="txt" v-for="msg in item.msgs" :key='msg'>{{msg}}</div>

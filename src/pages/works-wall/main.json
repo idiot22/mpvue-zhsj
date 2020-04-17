@@ -1,3 +1,6 @@
 {
-    "navigationStyle": "custom"
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#0fd1b8",
+    "navigationBarTitleText": "作品墙",
+    "navigationBarTextStyle": "white"
 }

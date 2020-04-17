@@ -200,7 +200,7 @@ export default {
   display: flex;
   padding: 10px;
   border-radius: 10px;
-  box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0px 4px 8px rgba(0,0,0,0.1);
   margin-bottom: 20px;
   box-sizing: border-box;
   .left{

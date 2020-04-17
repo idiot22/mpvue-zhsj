@@ -9,7 +9,7 @@ function initFly () {
 
 let fly = initFly()
 fly.config.timeout = 10 * 1000
-fly.config.headers.cookie = 'SESSION=ba4a75bf-a298-46c5-be98-b95f0b195b1f'
+fly.config.headers.cookie = 'SESSION=b3ff3a26-6699-4751-beb0-b92728f3bc18'
 fly.config.baseURL = 'https://zhsj.bnuz.edu.cn/ComprehensiveSys'
 fly.interceptors.request.use((request) => {
   wx.showLoading({ title: '拼命加载中...' })
