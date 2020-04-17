@@ -123,6 +123,9 @@ function postZuopin (params) {
 function getUserInfo (params) {
   return get('/student/getStudentInfo')
 }
+function getFriendList (params) {
+  return get('/student/getAllStudent', params)
+}
 export default {
   getProvince,
   getCity,
@@ -151,5 +154,6 @@ export default {
   report,
   getMyDeclare,
   postZuopin,
-  getUserInfo
+  getUserInfo,
+  getFriendList
 }
