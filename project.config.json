@@ -100,6 +100,13 @@
 					"id": -1,
 					"name": "pages/schedule/main",
 					"pathName": "pages/schedule/main",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/more/main",
+					"pathName": "pages/more/main",
 					"scene": null
 				}
 			]

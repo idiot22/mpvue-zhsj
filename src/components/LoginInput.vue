@@ -101,7 +101,7 @@ export default {
     .line-bottom{
       background: $main-color;
       width: 0%;
-      height: 2px;
+      height: 4px;
       position: absolute;
       bottom: 0px;
       transition: all 0.2s ease;
@@ -112,7 +112,7 @@ export default {
     .line-right{
       background: $main-color;
       height: 0px;
-      width: 2px;
+      width: 4px;
       position: absolute;
       right: 0px;
       bottom: 0px;
@@ -124,7 +124,7 @@ export default {
     .line-top{
       background: $main-color;
       width: 0%;
-      height: 2px;
+      height: 4px;
       position: absolute;
       top: 0px;
       right: 0px;

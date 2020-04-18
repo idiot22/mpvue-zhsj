@@ -2,6 +2,7 @@
   <div class="avatar-wraper">
       <div class="circle1" :style="{transform:'scale('+ scale +') !important' }">
           <div class="circle2" :style="{backgroundImage:'url('+src+')'}">
+            <img src="/static/github/touxiang.jpg" alt="" srcset="">
           </div>
       </div>
   </div>
@@ -40,12 +41,17 @@ export default {
       border-radius: 50%;
       transform-origin: left;
       .circle2{
+        img{
+          width: 100%;
+          height:100%;
+        }
           border: 2px white solid;
           background:$color-shallow;
           border-radius: 50%;
           width: 50px;
           height: 50px;
           background-size: 100% 100%;
+          overflow: hidden;
       }
   }
 

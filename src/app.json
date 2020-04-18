@@ -1,6 +1,8 @@
 {
   "pages": [
+    "pages/login/main",
     "pages/index/main",
+    
     "pages/addFriend/main",
     "pages/more/main",
     "pages/person/main",
@@ -8,7 +10,6 @@
     "pages/report/main",
     "pages/info-list/main",
     "pages/course-list/main",
-    "pages/login/main",
     "pages/plan/main",
     "pages/radar/main",
     "pages/order/main",

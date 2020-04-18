@@ -1,9 +1,11 @@
 <template>
   <div class="person">
-    <div class="person-bgimg" style='background-image:url(../../static/images/bg/1.jpg)'></div>
+    <div class="person-bgimg">
+      <img src="/static/images/bg/1.jpg" alt="" class="bg-img">
+    </div>
     <div class="top-bar" :style="topBarStyle">
       <div class="avatar">
-          <avatar :src="''" :scale='0.62' ></avatar>
+          <avatar :src="'/static/images/bg/touxiang.jpg'" :scale='0.62' ></avatar>
       </div>
       <span class="name" :class="showTop ?  'ani-name' : ''">{{userInfo.studentName}}</span>
     </div>
@@ -26,7 +28,7 @@
       </div>
       <hr class="line">
       <buddle-tab-bar :tabBig='tabFixed'></buddle-tab-bar>
-      <div class="tabShow">
+      <div class="tabShow1">
         <empty></empty>
       </div>
     </div>
@@ -51,7 +53,7 @@
               </div>
               <hr class="line">
               <buddle-tab-bar>99899</buddle-tab-bar>
-              <div class="tabShow">
+              <div class="tabShow1">
                 <empty></empty>
               </div>
             </div>
@@ -145,6 +147,14 @@ export default {
       height: 180px;
       background: $color-line;
       background-size:100% 100%; 
+      position: relative;
+      .bg-img{
+        position: absolute;
+        top:0px;
+        left: 0px;
+        width:100%;
+        height: 100%;
+      }
     }
     .scroll{
       position: relative;

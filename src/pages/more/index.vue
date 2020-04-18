@@ -11,10 +11,10 @@
           <p class="name">{{item.name}}</p>
           <p class="enl">{{item.enl}}</p>
         </div>
-        <div class="bg" :style='{background:item.color2}'></div>
         <div class="right">
           <van-icon :name="item.icon" color='#fff'/>
         </div>
+        <div class="bg" :style='{background:item.color2}'></div>
       </div>
     </div>
   </div>
@@ -29,7 +29,7 @@ export default {
         to: '../report/main',
         icon: 'comment-o',
         color: '#74dcd1',
-        color2: '#74dcd250'
+        color2: '#d3f4f1'
       },
       {
         name: '作品墙',
@@ -37,7 +37,7 @@ export default {
         to: '../works-wall/main',
         icon: 'smile-o',
         color: '#51d792',
-        color2: '#51d79241'
+        color2: '#d3f5e3'
       },
       {
         name: '添加好友',
@@ -45,7 +45,7 @@ export default {
         to: '../addFriend/main',
         icon: 'friends-o',
         color: '#d699f8',
-        color2: '#d799f85e'
+        color2: '#f0d9fc'
       },
       {
         name: '我的小队',
@@ -53,7 +53,7 @@ export default {
         to: '../group/main',
         icon: 'circle',
         color: '#e399bc',
-        color2: '#e399bb71'
+        color2: '#f3d2e1'
       }
     ]
   },
@@ -134,13 +134,13 @@ export default {
       font-size: 30px;
     }
     .bg{
-      width:90%;
-      height: 20px;
+      width: 90%;
+      height: 9rpx;
       position: absolute;
       background: #74dcd24f;
-      bottom:-4px;
-      border-radius: 10px;
-      left:50%;
+      bottom: -8rpx;
+      border-radius: 0px 0px 20px 20rpx;
+      left: 50%;
       transform: translateX(-50%);
     }
   }
